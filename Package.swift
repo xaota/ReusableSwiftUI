@@ -16,10 +16,10 @@ let package = Package(
             name: "UI",
             targets: ["UI"]
         ),
-//        .library(
-//            name: "MyPackage",
-//            targets: ["MyPackage"]
-//        )
+        .library(
+            name: "Channel",
+            targets: ["Channel"]
+        )
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -32,9 +32,9 @@ let package = Package(
                 .process("Localizable.xcstrings")
             ]
         ),
-//        .target(
-//            name: "MyPackage",
-//            dependencies: []
-//        )
+        .target(
+            name: "Channel",
+            dependencies: []
+        )
     ]
 )
