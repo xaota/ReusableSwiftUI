@@ -1,13 +1,13 @@
 import SwiftUI
 
 extension View {
-  public func sheetController<InnerContent : View> (
+  public func sheetController<InnerContent: View> (
     by: Binding<Bool>,
     title: String = "",
     icon: String = "",
     confirm: String = NSLocalizedString("action:done", tableName: "Application", comment: "Done"),
     action: (() -> Void)? = nil,
-    //    hideKeyboard: (() -> Void)? = nil,
+    // hideKeyboard: (() -> Void)? = nil,
     @ViewBuilder content: @escaping () -> InnerContent
   ) -> some View {
     modifier(SheetController(
@@ -23,15 +23,12 @@ extension View {
 }
 
 struct SheetController<InnerContent: View>: ViewModifier {
-  @Environment(\.dismiss) private var dismiss
-
-    //  public var by: Binding<Bool>
   @Binding var by: Bool
   let title: String
   let icon: String
   let confirm: String
   let action: (() -> Void)?
-    //  let hideKeyboard: (() -> Void)?
+  // let hideKeyboard: (() -> Void)?
   var innerContent: () -> InnerContent
 
   init(
@@ -40,7 +37,7 @@ struct SheetController<InnerContent: View>: ViewModifier {
     icon: String = "",
     confirm: String = NSLocalizedString("action:done", tableName: "Application", comment: "Done"),
     action: (() -> Void)? = nil,
-    //    hideKeyboard: (() -> Void)? = nil,
+    // hideKeyboard: (() -> Void)? = nil,
     @ViewBuilder innerContent: @escaping () -> InnerContent
   ) {
     self._by = by
@@ -48,7 +45,7 @@ struct SheetController<InnerContent: View>: ViewModifier {
     self.icon = icon
     self.confirm = confirm
     self.action = action
-      //    self.hideKeyboard = hideKeyboard
+    // self.hideKeyboard = hideKeyboard
     self.innerContent = innerContent
   }
 
@@ -62,7 +59,7 @@ struct SheetController<InnerContent: View>: ViewModifier {
           icon: icon,
           confirm: confirm,
           action: action,
-          //          hideKeyboard: hideKeyboard
+          // hideKeyboard: hideKeyboard
         ) {
           innerContent()
         }
@@ -127,13 +124,13 @@ struct SheetWrapper<Content: View>: View {
             }
           }
 
-            //          if hideKeyboard != nil {
+          // if hideKeyboard != nil {
           ToolbarItemGroup(placement: .keyboard) {
             Button(action: dismissKeyboard ) {
               Label(keyboardHide, systemImage: "keyboard.chevron.compact.down")
             }
           }
-            //          }
+          // }
         }
         .navigationTitle(caption)
 #if os(iOS)

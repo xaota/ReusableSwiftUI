@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 public struct Channel<AppEventType: RawRepresentable> where AppEventType.RawValue == String {
-  public static func dispatch(_ event: AppEventType, meta: [AnyHashable: Any]? = nil, object: Any? = nil) {
+  public static func dispatch(_ event: AppEventType, userInfo: [AnyHashable: Any]? = nil, payload: Any? = nil) {
     let name = Notification.Name(rawValue: event.rawValue)
-    NotificationCenter.default.post(name: name, object: object, userInfo: meta)
+    NotificationCenter.default.post(name: name, object: payload, userInfo: userInfo)
   }
 
   public static func message(_ event: AppEventType) -> NotificationCenter.Publisher {
