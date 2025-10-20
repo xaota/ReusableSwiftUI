@@ -19,6 +19,10 @@ let package = Package(
         .library(
             name: "Channel",
             targets: ["Channel"]
+        ),
+        .library(
+          name: "Intl",
+          targets: ["Intl"]
         )
     ],
     targets: [
@@ -35,6 +39,13 @@ let package = Package(
         .target(
             name: "Channel",
             dependencies: []
+        ),
+        .target(
+          name: "Intl",
+          dependencies: [],
+          resources: [
+            .process("currency.json")
+          ]
         )
     ]
 )

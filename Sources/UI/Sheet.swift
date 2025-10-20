@@ -2,11 +2,13 @@ import SwiftUI
 
 extension View {
   public func sheetController<InnerContent: View> (
+    _ title: String = "",
     by: Binding<Bool>,
-    title: String = "",
     icon: String = "",
     confirm: String = NSLocalizedString("action:done", tableName: "Application", comment: "Done"),
     action: (() -> Void)? = nil,
+    interactiveDismiss: Bool = true,
+    adaptiveHeight: PresentationDetent = .large,
     // hideKeyboard: (() -> Void)? = nil,
     @ViewBuilder content: @escaping () -> InnerContent
   ) -> some View {
@@ -16,6 +18,8 @@ extension View {
       icon: icon,
       confirm: confirm,
       action: action,
+      interactiveDismiss: interactiveDismiss,
+      adaptiveHeight: adaptiveHeight,
       //      hideKeyboard: hideKeyboard,
       innerContent: content
     ))
@@ -24,12 +28,17 @@ extension View {
 
 struct SheetController<InnerContent: View>: ViewModifier {
   @Binding var by: Bool
+
   let title: String
   let icon: String
   let confirm: String
   let action: (() -> Void)?
+  let interactiveDismiss: Bool
+  let adaptiveHeight: PresentationDetent
   // let hideKeyboard: (() -> Void)?
   var innerContent: () -> InnerContent
+
+  @State private var contentHeight: CGFloat = .zero
 
   init(
     by: Binding<Bool>,
@@ -37,6 +46,8 @@ struct SheetController<InnerContent: View>: ViewModifier {
     icon: String = "",
     confirm: String = NSLocalizedString("action:done", tableName: "Application", comment: "Done"),
     action: (() -> Void)? = nil,
+    interactiveDismiss: Bool = true,
+    adaptiveHeight: PresentationDetent = .large,
     // hideKeyboard: (() -> Void)? = nil,
     @ViewBuilder innerContent: @escaping () -> InnerContent
   ) {
@@ -45,6 +56,8 @@ struct SheetController<InnerContent: View>: ViewModifier {
     self.icon = icon
     self.confirm = confirm
     self.action = action
+    self.interactiveDismiss = interactiveDismiss
+    self.adaptiveHeight = adaptiveHeight
     // self.hideKeyboard = hideKeyboard
     self.innerContent = innerContent
   }
@@ -53,16 +66,34 @@ struct SheetController<InnerContent: View>: ViewModifier {
     let caption = NSLocalizedString(title, comment: "")
 
     return content
+      .background(
+        innerContent()
+          .background(
+            GeometryReader { proxy in
+              Color.clear
+                .task(id: proxy.size.height) {
+                  contentHeight = proxy.size.height + 128
+                }
+            }
+          )
+          .hidden()
+      )
       .sheet(isPresented: $by) {
         SheetWrapper(
           caption: caption,
           icon: icon,
           confirm: confirm,
           action: action,
+          interactiveDismiss: interactiveDismiss
           // hideKeyboard: hideKeyboard
+          // contentHeight: $contentHeight
         ) {
           innerContent()
         }
+        .presentationSizing(.page.sticky(horizontal: false, vertical: true))
+        .presentationDragIndicator(interactiveDismiss ? .visible : .hidden)
+        .interactiveDismissDisabled(!interactiveDismiss)
+        .presentationDetents([adaptiveHeight == .height(0) ? .height(contentHeight) : adaptiveHeight])
       }
   }
 }
@@ -74,7 +105,10 @@ struct SheetWrapper<Content: View>: View {
   let icon: String
   let confirm: String
   let action: (() -> Void)?
+  let interactiveDismiss: Bool
     //  let hideKeyboard: (() -> Void)?
+
+//  @Binding var contentHeight: CGFloat
   var content: () -> Content
 
   init(
@@ -82,25 +116,20 @@ struct SheetWrapper<Content: View>: View {
     icon: String = "",
     confirm: String = NSLocalizedString("action:done", tableName: "Application", comment: "Done"),
     action: (() -> Void)? = nil,
+    interactiveDismiss: Bool = false,
     //    hideKeyboard: (() -> Void)? = nil,
-    @ViewBuilder content: @escaping () -> Content
+//    contentHeight: Binding<CGFloat>,
+    @ViewBuilder content: @escaping () -> Content,
   ) {
     self.caption = caption
     self.icon = icon
     self.confirm = confirm
     self.action = action
-      //    self.hideKeyboard = hideKeyboard
+    self.interactiveDismiss = interactiveDismiss
+    // self.hideKeyboard = hideKeyboard
     self.content = content
+//    _contentHeight = contentHeight
   }
-
-    //  func dismissKeyboard() {
-    //    UIApplication.shared.sendAction(
-    //      #selector(UIResponder.resignFirstResponder),
-    //      to: nil,
-    //      from: nil,
-    //      for: nil
-    //    )
-    //  }
 
   var body: some View {
     let done = NSLocalizedString("action:done", tableName: "Application", comment: "Done")
@@ -109,9 +138,16 @@ struct SheetWrapper<Content: View>: View {
 
     NavigationStack {
       content()
+//        .onGeometryChange(for: CGFloat.self) { proxy in
+//          proxy.size.height
+//        } action: { newSize in
+//          contentHeight = newSize
+//        }
         .toolbar {
-          ToolbarItem(placement: .cancellationAction) {
-            Button(close, systemImage: "xmark") { dismiss() }
+          if interactiveDismiss != false {
+            ToolbarItem(placement: .cancellationAction) {
+              Button(close, systemImage: "xmark") { dismiss() }
+            }
           }
 
           if action != nil {
@@ -137,19 +173,52 @@ struct SheetWrapper<Content: View>: View {
         .navigationBarTitleDisplayMode(.inline)
 #endif
     }
-    .presentationSizing(.page.sticky(horizontal: false, vertical: true))
-    .presentationDragIndicator(.visible)
   }
 }
 
 #Preview {
-  @Previewable @State var showingSheet: Bool = false
+  @Previewable @State var showingSheet: Bool = true
+
+  @Previewable @State var step: Int = 0 // 0..2
+
+  @Previewable @State var contentHeight: [CGFloat] = [100, 200, 300, 400]
 
   Button("Test button") { showingSheet.toggle() }
-    .sheetController(by: $showingSheet, title: "test sheet", icon: "ellipsis.circle") {
+    .sheetController(
+      "test sheet",
+      by: $showingSheet,
+      icon: "ellipsis.circle",
+      adaptiveHeight: .height(0)
+//      interactiveDismiss: false
+    ) {
       let title = String(localized: "app:hello-world", bundle: .module)
-      Text(title)
+
+      VStack {
+        Text(title)
+
+        Text("step: \(step)")
+
+        if step == 1 {
+          Text("step 1")
+        }
+
+        if step > 1 {
+          Text("step 2+")
+        }
+
+        if step == 3 {
+          Rectangle()
+            .fill(.red)
+            .frame(height: 120)
+        }
+
+        Button(action: { step = (step + 1) % 4}) {
+          Text("next")
+        }
+        .padding(.top, 20)
+      }
     }
+    .presentationDetents([.height(contentHeight[step] + 120)])
 }
 
 @MainActor func dismissKeyboard() {
