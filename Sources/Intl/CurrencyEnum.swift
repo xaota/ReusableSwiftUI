@@ -1,6 +1,6 @@
 //
 //  CurrencyEnum.swift
-//  depositario
+//  Reusable
 //
 //  Created by Rinat Ibragimov on 19.10.2025.
 //

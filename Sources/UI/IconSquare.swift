@@ -59,6 +59,7 @@ public struct IconSquare: View {
         .clipShape(Circle())
     } else {
       Text(text!).font(.title3)
+        .fixedSize()
         .frame(width: self.size, height: self.size)
         .padding()
         .foregroundColor(color)
@@ -72,14 +73,18 @@ private extension View {
   @ViewBuilder func backgroundWithColor(color: Color) -> some View {
     if color == .clear {
       background(.ultraThinMaterial)
-      } else {
-        background(color)
-        }
+    } else {
+      background(color)
     }
+  }
 }
 
 
 #Preview {
-  IconSquare("arrow.up.right", selected: true, background: Color.cyan)
+  VStack {
+    IconSquare("arrow.up.right", selected: true, background: Color.cyan)
+
+    IconSquare(text: "AE", selected: true, background: Color.cyan)
+  }
 }
 

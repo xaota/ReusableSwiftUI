@@ -1,13 +1,15 @@
 //
-//  CurrencyModel..swift
+//  CurrencyStore.swift
 //  Reusable
 //
 //  Created by Rinat Ibragimov on 19.10.2025.
 //
 
-public final class CurrencyModel: @unchecked Sendable {
-  public static let json: CurrencyModel = {
-    let instance = CurrencyModel()
+import Foundation
+
+public final class CurrencyStore: @unchecked Sendable {
+  public static let json: CurrencyStore = {
+    let instance = CurrencyStore()
     instance.load()
     return instance
   }()
@@ -18,7 +20,7 @@ public final class CurrencyModel: @unchecked Sendable {
   // You can keep this internal if you don't want external callers to invoke it.
   // It's called within the same file during shared initialization.
   func load() {
-    let json: [CurrencyJSON] = decodeCurrencyJSON("currency.json")
+    let json: [CurrencyJSON] = decodeCurrencyJSON()
     self.currencyJSON = json
   }
 
@@ -62,3 +64,34 @@ public final class CurrencyModel: @unchecked Sendable {
     return self.currencyJSON.first(where: { $0.code == code }) ?? nil
   }
 }
+
+func decodeCurrencyJSON(file: String = "currency", fileExtension: String = "json") -> [CurrencyJSON] {
+  guard let url = Bundle.module.url(forResource: file, withExtension: fileExtension) else {
+    fatalError("Faliled to locate \(file) in bundle")
+  }
+
+  guard let data = try? Data(contentsOf: url) else {
+    fatalError("Failed to load file from \(file) from bundle")
+  }
+
+  let decoder = JSONDecoder()
+
+  guard let loadedFile = try? decoder.decode([CurrencyJSON].self, from: data) else {
+    fatalError("Failed to decode \(file) from bundle")
+  }
+
+  return loadedFile
+}
+
+//public static let general: [CurrencyType] = [.USD, .EUR, .RUB]
+//public static let popular: [CurrencyType] = [.GEL, .TRY, .THB, .LKR, .KZT, .AMD, .ILS, .VND, .MNT, .KGS, .BYN]
+//public static let addition: [CurrencyType] = [.CNY, .KHR, .BGN, .AZN, .LAK, .INR, .KRW, .AED]
+//public static let crypto: [CurrencyType] = [.BTC]
+//public static let other: [CurrencyType] = [.GBP, .CHF, .JPY, .PLN, .SEK, .UAH]
+//public static let all: [CurrencyType] = CurrencyType.allCases.filter {
+//  !CurrencyType.general.contains($0) &&
+//  !CurrencyType.popular.contains($0) &&
+//  !CurrencyType.addition.contains($0) &&
+//  !CurrencyType.crypto.contains($0) &&
+//  !CurrencyType.other.contains($0)
+//  }

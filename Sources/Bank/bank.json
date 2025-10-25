@@ -1,0 +1,22 @@
+[
+  {
+    "caption": "Альфа-Банк",
+    "code": "alfabank",
+    "search": ["альфабанк"]
+  },
+  {
+    "caption": "Revolut",
+    "code": "revolut",
+    "search": []
+  },
+  {
+    "caption": "СБЕР",
+    "code": "sberbank",
+    "search": ["sber", "сбербанк"]
+  },
+  {
+    "caption": "Т-Банк",
+    "code": "tbank",
+    "search": ["tbank", "tinkoff", "tinkov", "тинькофф", "тиньков", "tinkoffbank", "тинькоффбанк", "тинька"]
+  }
+]

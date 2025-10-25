@@ -8,8 +8,7 @@ extension View {
     confirm: String = NSLocalizedString("action:done", tableName: "Application", comment: "Done"),
     action: (() -> Void)? = nil,
     interactiveDismiss: Bool = true,
-    adaptiveHeight: PresentationDetent = .large,
-    // hideKeyboard: (() -> Void)? = nil,
+    height: Binding<PresentationDetent> = .constant(.large),
     @ViewBuilder content: @escaping () -> InnerContent
   ) -> some View {
     modifier(SheetController(
@@ -19,8 +18,7 @@ extension View {
       confirm: confirm,
       action: action,
       interactiveDismiss: interactiveDismiss,
-      adaptiveHeight: adaptiveHeight,
-      //      hideKeyboard: hideKeyboard,
+      height: height,
       innerContent: content
     ))
   }
@@ -28,14 +26,13 @@ extension View {
 
 struct SheetController<InnerContent: View>: ViewModifier {
   @Binding var by: Bool
+  @Binding var height: PresentationDetent
 
   let title: String
   let icon: String
   let confirm: String
   let action: (() -> Void)?
   let interactiveDismiss: Bool
-  let adaptiveHeight: PresentationDetent
-  // let hideKeyboard: (() -> Void)?
   var innerContent: () -> InnerContent
 
   @State private var contentHeight: CGFloat = .zero
@@ -47,8 +44,7 @@ struct SheetController<InnerContent: View>: ViewModifier {
     confirm: String = NSLocalizedString("action:done", tableName: "Application", comment: "Done"),
     action: (() -> Void)? = nil,
     interactiveDismiss: Bool = true,
-    adaptiveHeight: PresentationDetent = .large,
-    // hideKeyboard: (() -> Void)? = nil,
+    height: Binding<PresentationDetent>,
     @ViewBuilder innerContent: @escaping () -> InnerContent
   ) {
     self._by = by
@@ -57,8 +53,7 @@ struct SheetController<InnerContent: View>: ViewModifier {
     self.confirm = confirm
     self.action = action
     self.interactiveDismiss = interactiveDismiss
-    self.adaptiveHeight = adaptiveHeight
-    // self.hideKeyboard = hideKeyboard
+    self._height = height
     self.innerContent = innerContent
   }
 
@@ -66,18 +61,6 @@ struct SheetController<InnerContent: View>: ViewModifier {
     let caption = NSLocalizedString(title, comment: "")
 
     return content
-      .background(
-        innerContent()
-          .background(
-            GeometryReader { proxy in
-              Color.clear
-                .task(id: proxy.size.height) {
-                  contentHeight = proxy.size.height + 128
-                }
-            }
-          )
-          .hidden()
-      )
       .sheet(isPresented: $by) {
         SheetWrapper(
           caption: caption,
@@ -85,15 +68,18 @@ struct SheetController<InnerContent: View>: ViewModifier {
           confirm: confirm,
           action: action,
           interactiveDismiss: interactiveDismiss
-          // hideKeyboard: hideKeyboard
-          // contentHeight: $contentHeight
         ) {
           innerContent()
+            .onGeometryChange(for: CGSize.self) { proxy in
+              proxy.size
+            } action: {
+              contentHeight = $0.height + 128
+            }
         }
         .presentationSizing(.page.sticky(horizontal: false, vertical: true))
         .presentationDragIndicator(interactiveDismiss ? .visible : .hidden)
         .interactiveDismissDisabled(!interactiveDismiss)
-        .presentationDetents([adaptiveHeight == .height(0) ? .height(contentHeight) : adaptiveHeight])
+        .presentationDetents([height == .adaptive ? .height(contentHeight) : height])
       }
   }
 }
@@ -106,9 +92,6 @@ struct SheetWrapper<Content: View>: View {
   let confirm: String
   let action: (() -> Void)?
   let interactiveDismiss: Bool
-    //  let hideKeyboard: (() -> Void)?
-
-//  @Binding var contentHeight: CGFloat
   var content: () -> Content
 
   init(
@@ -117,8 +100,6 @@ struct SheetWrapper<Content: View>: View {
     confirm: String = NSLocalizedString("action:done", tableName: "Application", comment: "Done"),
     action: (() -> Void)? = nil,
     interactiveDismiss: Bool = false,
-    //    hideKeyboard: (() -> Void)? = nil,
-//    contentHeight: Binding<CGFloat>,
     @ViewBuilder content: @escaping () -> Content,
   ) {
     self.caption = caption
@@ -126,23 +107,15 @@ struct SheetWrapper<Content: View>: View {
     self.confirm = confirm
     self.action = action
     self.interactiveDismiss = interactiveDismiss
-    // self.hideKeyboard = hideKeyboard
     self.content = content
-//    _contentHeight = contentHeight
   }
 
   var body: some View {
     let done = NSLocalizedString("action:done", tableName: "Application", comment: "Done")
     let close = NSLocalizedString("action:close", tableName: "Application", comment: "Close")
-    let keyboardHide = NSLocalizedString("keyboard:hide", tableName: "Application", comment: "Keyboard hide")
 
     NavigationStack {
       content()
-//        .onGeometryChange(for: CGFloat.self) { proxy in
-//          proxy.size.height
-//        } action: { newSize in
-//          contentHeight = newSize
-//        }
         .toolbar {
           if interactiveDismiss != false {
             ToolbarItem(placement: .cancellationAction) {
@@ -159,19 +132,11 @@ struct SheetWrapper<Content: View>: View {
               }
             }
           }
-
-          // if hideKeyboard != nil {
-          ToolbarItemGroup(placement: .keyboard) {
-            Button(action: dismissKeyboard ) {
-              Label(keyboardHide, systemImage: "keyboard.chevron.compact.down")
-            }
-          }
-          // }
         }
         .navigationTitle(caption)
-#if os(iOS)
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
-#endif
+        #endif
     }
   }
 }
@@ -188,8 +153,8 @@ struct SheetWrapper<Content: View>: View {
       "test sheet",
       by: $showingSheet,
       icon: "ellipsis.circle",
-      adaptiveHeight: .height(0)
-//      interactiveDismiss: false
+      height: .constant(.adaptive)
+      // interactiveDismiss: false
     ) {
       let title = String(localized: "app:hello-world", bundle: .module)
 
@@ -218,14 +183,14 @@ struct SheetWrapper<Content: View>: View {
         .padding(.top, 20)
       }
     }
-    .presentationDetents([.height(contentHeight[step] + 120)])
 }
 
-@MainActor func dismissKeyboard() {
-  UIApplication.shared.sendAction(
-    #selector(UIResponder.resignFirstResponder),
-    to: nil,
-    from: nil,
-    for: nil
-  )
+extension PresentationDetent {
+  public static let adaptive = Self.custom(AdaptiveDetent.self)
+}
+
+private struct AdaptiveDetent: CustomPresentationDetent {
+  static func height(in context: Context) -> CGFloat? {
+    0
+  }
 }
