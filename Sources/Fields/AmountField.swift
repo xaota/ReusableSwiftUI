@@ -36,21 +36,24 @@ public struct AmountField: View {
     HCenter {
       HStack(alignment: .center) {
         TextField(prompt, value: $value, format: .number) // .precision(.fractionLength(2)) // .currency(code: "")
+//          .keyboardType(.decimalPad)
+//          .fixedSize(horizontal: true, vertical: false)
+//          .font(.system(size: 36, weight: .light, design: .rounded))
+//          .foregroundColor(Color.primary)
+//          .multilineTextAlignment(.trailing)
+//          .accentColor(Color.accentColor)
+//          // .scrollDismissesKeyboard(.immediately)
+//          .submitLabel(.done)
+//          .focused($isFocused)
+//          .overlay(
+//            Divider()
+//              .frame(maxWidth: .infinity, maxHeight: 3)
+//              .background(isFocused ? Color.accentColor : Color.secondary.opacity(0.2)),
+//            alignment: .bottom
+//          )
+          .fieldPrimary(alignment: .trailing)
           .keyboardType(.decimalPad)
-          .fixedSize(horizontal: true, vertical: false)
-          .font(.system(size: 36, weight: .light, design: .rounded))
-          .foregroundColor(Color.primary)
-          .multilineTextAlignment(.trailing)
-          .accentColor(Color.accentColor)
-          // .scrollDismissesKeyboard(.immediately)
           .submitLabel(.done)
-          .focused($isFocused)
-          .overlay(
-            Divider()
-              .frame(maxWidth: .infinity, maxHeight: 3)
-              .background(isFocused ? Color.accentColor : Color.secondary.opacity(0.2)),
-            alignment: .bottom
-          )
 
       if currencyChange == nil {
         Text(sign).scaleEffect(1.8).padding(.leading)
