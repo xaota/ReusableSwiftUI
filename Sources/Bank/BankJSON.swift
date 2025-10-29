@@ -10,6 +10,7 @@ import Foundation
 public struct BankJSON: Codable {
   public var caption: String
   public var code: String
+  public var monotone: Bool?
   public var search: [String]?
   // public var brand: Int?
   // public var colors: [Int]?

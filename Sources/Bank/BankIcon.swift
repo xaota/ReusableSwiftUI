@@ -18,7 +18,11 @@ public struct BankIcon: View {
 
   public var body: some View {
     if let uiImage = BankIcon.image(bank) {
-      Image(uiImage: uiImage).resizable().scaledToFit()
+      Image(uiImage: uiImage)
+        .resizable()
+        .scaledToFit()
+//        .shadow(color: .white, radius: 2)
+//        .shadow(color: .gray, radius: 2, x: 0, y: 0)
     }
   }
 
@@ -42,17 +46,23 @@ public struct BankIcon: View {
 
   public static func image(_ bank: String) -> UIImage? {
     let path = BankIcon.path(bank)
-    return UIImage(svgNamed: path, in: .module)
+    let monotone = BankStore.get(bank)?.monotone ?? false
+    let image = UIImage(svgNamed: path, in: .module)
+    return monotone
+      ? image?.withRenderingMode(.alwaysTemplate)
+      : image
   }
 
 }
 
 #Preview {
-  VStack {
+  ScrollView {
     BankIcon(bank: "sberbank")
     BankIcon(bank: "sbr bgank")
     BankIcon(bank: "sbrank")
-    BankIcon(bank: "alfa-bank")
     BankIcon(bank: "revolut")
+    BankIcon(bank: "alfa-bank")
+    BankIcon(bank: "tbank")
   }
+  .frame(width: 128)
 }
