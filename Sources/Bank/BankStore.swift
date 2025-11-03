@@ -69,10 +69,10 @@ func decodeBankJSON(file: String = "bank", fileExtension: String = "json") -> [B
     fatalError("Failed to load file from \(file) from bundle")
   }
 
-  print("\(data) Loaded \(file) from bundle")
-  if let str = String(data: data, encoding: .utf8) {
-    print("Successfully decoded: \(str)")
-  }
+//  print("\(data) Loaded \(file) from bundle")
+//  if let str = String(data: data, encoding: .utf8) {
+//    print("Successfully decoded: \(str)")
+//  }
 
   let decoder = JSONDecoder()
     do {

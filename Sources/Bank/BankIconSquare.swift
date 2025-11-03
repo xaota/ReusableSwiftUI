@@ -10,15 +10,17 @@ import UI
 
 public struct BankIconSquare: View {
   var bank: String
+  var size: CGFloat = 24
 
-  public init(bank: String) {
+  public init(bank: String, size: CGFloat = 24) {
     self.bank = bank
+    self.size = size
   }
 
   public var body: some View {
     if BankIcon.has(bank) {
       BankIcon(bank: bank)
-        .frame(width: 24, height: 24)
+        .frame(width: size, height: size)
         .padding()
         .background(.ultraThinMaterial)
         .clipShape(Circle())
@@ -26,7 +28,7 @@ public struct BankIconSquare: View {
       let color = BankIconSquare.color(bank)
       let letter = BankIconSquare.letter(bank)
 
-      IconSquare(text: letter, selected: true, background: color)
+      IconSquare(text: letter, selected: true, background: color, size: size)
     }
   }
 

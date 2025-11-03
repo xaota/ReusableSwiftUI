@@ -47,6 +47,9 @@ public struct BankIcon: View {
   public static func image(_ bank: String) -> UIImage? {
     let path = BankIcon.path(bank)
     let monotone = BankStore.get(bank)?.monotone ?? false
+//    if monotone {
+//      print("BankIcon: using monotone icon for bank '\(bank)'")
+//    }
     let image = UIImage(svgNamed: path, in: .module)
     return monotone
       ? image?.withRenderingMode(.alwaysTemplate)
@@ -63,6 +66,14 @@ public struct BankIcon: View {
     BankIcon(bank: "revolut")
     BankIcon(bank: "alfa-bank")
     BankIcon(bank: "tbank")
+    BankIcon(bank: "vtb")
+    BankIcon(bank: "eurobank")
+    BankIcon(bank: "gazprombank")
+    BankIcon(bank: "pochtabank")
+    BankIcon(bank: "raiffeisen")
+    BankIcon(bank: "sbp")
+    BankIcon(bank: "deutschebank")
+    BankIcon(bank: "yandex")
   }
-  .frame(width: 128)
+  .frame(width: 64)
 }

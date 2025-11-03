@@ -1,8 +1,132 @@
 [
   {
+    "caption": "Ак Барс",
+    "code": "akbars",
+    "search": ["акбарс", "акбарсбанк"]
+  },
+  {
     "caption": "Альфа-Банк",
     "code": "alfabank",
     "search": ["альфабанк"]
+  },
+  {
+    "caption": "Bank of China",
+    "code": "bankofchina",
+    "search": ["банкофчайна", "boc"]
+  },
+  {
+    "caption": "Бланк",
+    "code": "blanc",
+    "search": ["бланкбанк"]
+  },
+  {
+    "caption": "BNP Paribas",
+    "code": "bnpparibasbank",
+    "search": ["бнппарибас", "bnpparibas", "бнп париба", "бнп", "bnpp", "paribas", "bnppb", "бнпб"]
+  },
+  {
+    "caption": "Citibank",
+    "code": "citibank",
+    "search": ["ситибанк", "citibank"]
+  },
+  {
+    "caption": "Credit Suisse",
+    "code": "creditsuisse"
+  },
+  {
+    "caption": "Credit Europe",
+    "code": "crediteurope",
+    "search": ["кредитевропа", "crediteurope"]
+  },
+  {
+    "caption": "Eurobank",
+    "code": "eurobank",
+    "search": ["евробанк", "eurobank", "hellenicbank"]
+  },
+  {
+    "caption": "Deutsche Bank",
+    "code": "deutschebank",
+    "search": ["дойче банк", "deutschebank", "db"]
+  },
+  {
+    "caption": "Финам",
+    "code": "finambank",
+    "search": ["финамбанк", "finam"]
+  },
+  {
+    "caption": "Газпромбанк",
+    "code": "gazprombank",
+    "search": ["газпром", "gazprom"]
+  },
+  {
+    "caption": "Goldman Sachs",
+    "code": "goldmansachs",
+    "search": ["голдмансакс", "goldmansachs", "gs"]
+  },
+  {
+    "caption": "Хайс",
+    "code": "hicebank"
+  },
+  {
+    "caption": "Home Credit",
+    "code": "homecredit",
+    "search": ["хомкредит банк", "homecreditbank", "хоумкредит банк"]
+  },
+  {
+    "caption": "HSBC",
+    "code": "hsbc",
+    "search": ["hsbc", "хэсбиси", "эйчэсбиси"]
+  },
+  {
+    "caption": "ICBS",
+    "code": "icbs"
+  },
+  {
+    "caption": "ING",
+    "code": "ingbank",
+    "search": ["инг банк", "ingbank", "ингбанк"]
+  },
+  {
+    "caption": "JP Morgan",
+    "code": "jpmorgan",
+    "search": ["джейпи морган", "jpmorgan", "jpm", "jp morgan", "morgan chase", "jp морган", "jpmc", "жпморган"]
+  },
+  {
+    "caption": "Модульбанк",
+    "code": "modulbank"
+  },
+  {
+    "caption": "МТС Банк",
+    "code": "mtsbank"
+  },
+  {
+    "caption": "OTP Bank",
+    "code": "otpbank",
+    "search": ["отпбанк"]
+  },
+  {
+    "caption": "OZON Банк",
+    "code": "ozon",
+    "search": ["озонбанк", "ozonbank"]
+  },
+  {
+    "caption": "Pay Pal",
+    "code": "paypal",
+    "search": ["пейпал"]
+  },
+  {
+    "caption": "Почта Банк",
+    "code": "pochta-bank"
+  },
+  {
+    "caption": "Промсвязьбанк",
+    "code": "psbank",
+    "search": ["промсвязьбанк", "промсвязь", "psb", "promsvyazbank"]
+  },
+  {
+    "caption": "Raiffeisen",
+    "code": "raiffeisen",
+    "search": ["райффайзенбанк", "raiffeisenbank", "рафайзен"]
   },
   {
     "caption": "Revolut",
@@ -11,13 +135,76 @@
     "search": []
   },
   {
+    "caption": "Россельхозбанк",
+    "code": "rshb",
+    "search": ["рсхб", "россельхоз", "rshb", "rshbbank"]
+  },
+  {
     "caption": "СБЕР",
     "code": "sberbank",
     "search": ["sber", "сбербанк"]
   },
   {
+    "caption": "СБП",
+    "code": "sbp"
+  },
+  {
     "caption": "Т-Банк",
     "code": "tbank",
     "search": ["tbank", "tinkoff", "tinkov", "тинькофф", "тиньков", "tinkoffbank", "тинькоффбанк", "тинька"]
+  },
+  {
+    "caption": "Точка",
+    "code": "tochka",
+    "search": ["точкабанк", "tochkabank"]
+  },
+  {
+    "caption": "УБРР",
+    "code": "ubrr",
+    "search": ["уральский банк реконструкции и развития", "убррбанк", "ubrrbank", "ubrd"]
+  },
+  {
+    "caption": "UBS",
+    "code": "ubs",
+    "search": ["убс", "юбиэс", "юбс", "ubsbank"]
+  },
+  {
+    "caption": "UniCredit",
+    "code": "unicreditbank",
+    "search": ["юникредитбанк", "unicredit"]
+  },
+  {
+    "caption": "Уралсиб",
+    "code": "uralsib",
+    "search": ["уралсиббанк", "uralsibbank","уралосибирский банк"]
+  },
+  {
+    "caption": "VK",
+    "code": "vkpay",
+    "search": ["вкпей", "вкпэй", "vkpay", "vk pay", "vkontakte", "вконтакте"]
+  },
+  {
+    "caption": "ВТБ",
+    "code": "vtb",
+    "search": ["втббанк", "втб24", "vtbbank"]
+  },
+  {
+    "caption": "Waybank",
+    "code": "waybank"
+  },
+  {
+    "caption": "Wildberries",
+    "code": "wildberries",
+    "search": ["wildberriesбанк", "wildberries bank", "wb банк", "wbбанк", "вайлдберризбанк"]
+  },
+  {
+    "caption": "Яндекс",
+    "code": "yandex",
+    "monotone": true
+  },
+  {
+    "caption": "ЮMoney",
+    "code": "yoomoney",
+    "search": ["юмани", "юманей", "yoomoney", "yoomoneybank","umoney", "юманибанк"]
   }
 ]
