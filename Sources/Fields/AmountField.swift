@@ -10,7 +10,6 @@ import Intl
 import UI
 
 public struct AmountField: View {
-
   @Binding var value: Decimal
   var currency: CurrencyEnum
   let currencyChange: (() -> Void)?
@@ -24,7 +23,7 @@ public struct AmountField: View {
     currency: CurrencyEnum,
     currencyChange: (() -> Void)? = nil
   ) {
-    self.prompt = prompt // NSLocalizedString(prompt, comment: "")
+    self.prompt = prompt
     self._value = value
     self.currency = currency
     self.currencyChange = currencyChange
@@ -35,22 +34,7 @@ public struct AmountField: View {
 
     HCenter {
       HStack(alignment: .center) {
-        TextField(prompt, value: $value, format: .number) // .precision(.fractionLength(2)) // .currency(code: "")
-//          .keyboardType(.decimalPad)
-//          .fixedSize(horizontal: true, vertical: false)
-//          .font(.system(size: 36, weight: .light, design: .rounded))
-//          .foregroundColor(Color.primary)
-//          .multilineTextAlignment(.trailing)
-//          .accentColor(Color.accentColor)
-//          // .scrollDismissesKeyboard(.immediately)
-//          .submitLabel(.done)
-//          .focused($isFocused)
-//          .overlay(
-//            Divider()
-//              .frame(maxWidth: .infinity, maxHeight: 3)
-//              .background(isFocused ? Color.accentColor : Color.secondary.opacity(0.2)),
-//            alignment: .bottom
-//          )
+        TextField(prompt, value: $value, format: .number)
           .fieldPrimary(alignment: .trailing)
           .keyboardType(.decimalPad)
           .submitLabel(.done)
@@ -77,7 +61,7 @@ public struct AmountField: View {
   @Previewable @State var amount: Decimal = 2025.10
 
   AmountField(
-    "app",
+    "0,00",
     value: $amount,
     currency: .RUB //,
     //      currencyChange: {}

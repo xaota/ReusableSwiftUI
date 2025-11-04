@@ -15,9 +15,15 @@
     "search": ["банкофчайна", "boc"]
   },
   {
+    "caption": "Bank of Georgia",
+    "code": "bankofgeorgia",
+    "search": ["банкофджорджа", "банкофджеорджия", "bog"]
+  },
+  {
     "caption": "Бланк",
     "code": "blanc",
-    "search": ["бланкбанк"]
+    "search": ["бланкбанк"],
+    "monotone": true
   },
   {
     "caption": "BNP Paribas",
@@ -30,13 +36,28 @@
     "search": ["ситибанк", "citibank"]
   },
   {
+    "caption": "Credit Europe",
+    "code": "crediteurope",
+    "search": ["кредитевропа", "crediteurope"]
+  },
+  {
     "caption": "Credit Suisse",
     "code": "creditsuisse"
   },
   {
-    "caption": "Credit Europe",
-    "code": "crediteurope",
-    "search": ["кредитевропа", "crediteurope"]
+    "caption": "Deutsche Bank",
+    "code": "deutschebank",
+    "search": ["дойче банк", "deutschebank", "db"],
+    "en": "German Bank",
+    "ru": "Немецкий банк",
+    "country": "DE",
+    "brand": ["#003f8a"],
+    "monotone": true
+  },
+  {
+    "caption": "Erste",
+    "code": "erstebank",
+    "search": ["эрстебанк", "erstebank", "erstegroup"]
   },
   {
     "caption": "Eurobank",
@@ -44,14 +65,15 @@
     "search": ["евробанк", "eurobank", "hellenicbank"]
   },
   {
-    "caption": "Deutsche Bank",
-    "code": "deutschebank",
-    "search": ["дойче банк", "deutschebank", "db"]
-  },
-  {
     "caption": "Финам",
     "code": "finambank",
     "search": ["финамбанк", "finam"]
+  },
+  {
+    "caption": "Finom",
+    "code": "finombank",
+    "search": ["финомбанк", "finom"],
+    "country": "NL"
   },
   {
     "caption": "Газпромбанк",
@@ -64,13 +86,19 @@
     "search": ["голдмансакс", "goldmansachs", "gs"]
   },
   {
+    "caption": "Halkbank",
+    "code": "halkbank",
+    "search": ["халкбанк", "halkbank"]
+  },
+  {
     "caption": "Хайс",
-    "code": "hicebank"
+    "code": "hicebank",
+    "monotone": true
   },
   {
     "caption": "Home Credit",
     "code": "homecredit",
-    "search": ["хомкредит банк", "homecreditbank", "хоумкредит банк"]
+    "search": ["хомкредит банк", "homecreditbank", "хоумкредит банк", "хоумбанк"]
   },
   {
     "caption": "HSBC",
@@ -78,8 +106,11 @@
     "search": ["hsbc", "хэсбиси", "эйчэсбиси"]
   },
   {
-    "caption": "ICBS",
-    "code": "icbs"
+    "caption": "ICBC",
+    "code": "icbc",
+    "search": ["icbc", "икбс", "айсбиси"],
+    "en": "Industrial and Commercial Bank of China",
+    "ru": "Промышленно-торговый банк Китая"
   },
   {
     "caption": "ING",
@@ -90,6 +121,16 @@
     "caption": "JP Morgan",
     "code": "jpmorgan",
     "search": ["джейпи морган", "jpmorgan", "jpm", "jp morgan", "morgan chase", "jp морган", "jpmc", "жпморган"]
+  },
+  {
+    "caption": "Kasikornbank",
+    "code": "kasikornbank",
+    "search": ["касикорнбанк", "kasikornbank"]
+  },
+  {
+    "caption": "Kaspi",
+    "code": "kaspi",
+    "search": ["каспибанк", "kaspibank", "каспи", "kaspikz"]
   },
   {
     "caption": "Модульбанк",
@@ -131,13 +172,18 @@
   {
     "caption": "Revolut",
     "code": "revolut",
-    "monotone": true,
-    "search": []
+    "monotone": true
   },
   {
     "caption": "Россельхозбанк",
     "code": "rshb",
     "search": ["рсхб", "россельхоз", "rshb", "rshbbank"]
+  },
+  {
+    "caption": "Santander",
+    "code": "santander",
+    "search": ["сантандербанк", "santanderbank", "сантандер"],
+    "country": "ES"
   },
   {
     "caption": "СБЕР",
@@ -156,7 +202,8 @@
   {
     "caption": "Точка",
     "code": "tochka",
-    "search": ["точкабанк", "tochkabank"]
+    "search": ["точкабанк", "tochkabank"],
+    "monotone": true
   },
   {
     "caption": "УБРР",
@@ -166,7 +213,8 @@
   {
     "caption": "UBS",
     "code": "ubs",
-    "search": ["убс", "юбиэс", "юбс", "ubsbank"]
+    "search": ["убс", "юбиэс", "юбс", "ubsbank"],
+    "monotone": true
   },
   {
     "caption": "UniCredit",
@@ -176,6 +224,7 @@
   {
     "caption": "Уралсиб",
     "code": "uralsib",
+    "monotone": true,
     "search": ["уралсиббанк", "uralsibbank","уралосибирский банк"]
   },
   {
