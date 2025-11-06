@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum CurrencyEnum: Codable {
+public enum CurrencyEnum: String, Codable, Hashable, CaseIterable {
   // основные
   case USD
   case EUR
@@ -57,6 +57,12 @@ public enum CurrencyEnum: Codable {
   case PLN // польша 🇵🇱
   case SEK // швеция
   case UAH // украина
+
+  public static func by(_ code: String) -> CurrencyEnum? {
+    return CurrencyEnum.allCases.first(where: { $0.rawValue == code })
+  }
+
+
 
   //  все валюты
 

@@ -59,21 +59,33 @@ public struct BankIcon: View {
 }
 
 #Preview {
+  var banks: [BankJSON] = BankStore.json.bankJSON
+  var cols = 3
+  var size: CGFloat = 96
+  var rows = Int(ceil(Double(banks.count) / Double(cols)))
+
   ScrollView {
-    BankIcon(bank: "sberbank")
-    BankIcon(bank: "sbr bgank")
-    BankIcon(bank: "sbrank")
-    BankIcon(bank: "revolut")
-    BankIcon(bank: "alfa-bank")
-    BankIcon(bank: "tbank")
-    BankIcon(bank: "vtb")
-    BankIcon(bank: "eurobank")
-    BankIcon(bank: "gazprombank")
-    BankIcon(bank: "pochtabank")
-    BankIcon(bank: "raiffeisen")
-    BankIcon(bank: "sbp")
-    BankIcon(bank: "deutschebank")
-    BankIcon(bank: "yandex")
+    Grid() {
+      ForEach(0..<rows) { row in
+        GridRow {
+          ForEach(0..<cols) { col in
+            let index = row * cols + col
+            if index < banks.count {
+              let bank = banks[index]
+
+              VStack {
+                BankIcon(bank: bank.code)
+                  .frame(width: size, height: size)
+                Text(bank.caption).font(.caption)
+              }
+              .padding()
+            } else {
+              EmptyView()
+            }
+          }
+        }
+      }
+    }
+
   }
-  .frame(width: 64)
 }

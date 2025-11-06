@@ -78,13 +78,34 @@ public struct BankIconSquare: View {
 }
 
 #Preview {
-  VStack {
-    BankIconSquare(bank: "sberbank")
-    BankIconSquare(bank: "sbr bgank")
-    BankIconSquare(bank: "sbrank")
-    BankIconSquare(bank: "alfa-bank")
-    BankIconSquare(bank: "revolut")
+  var banks: [BankJSON] = BankStore.json.bankJSON
+  var cols = 3
+  var size: CGFloat = 64
+  var rows = Int(ceil(Double(banks.count) / Double(cols)))
+
+  ScrollView {
+    Grid() {
+      ForEach(0..<rows) { row in
+        GridRow {
+          ForEach(0..<cols) { col in
+            let index = row * cols + col
+            if index < banks.count {
+              let bank = banks[index]
+
+              VStack {
+                BankIconSquare(bank: bank.code, size: size)
+                Text(bank.caption).font(.caption)
+              }
+              .padding()
+            } else {
+              EmptyView()
+            }
+          }
+        }
+      }
     }
+
+  }
 }
 
 extension Color {

@@ -1,8 +1,16 @@
 [
   {
+    "caption": "ADCB",
+    "code": "adcbuae",
+    "search": ["adcb", "адцб", "адцббанк", "adcbank"],
+    "country": "AE",
+    "en": "Abu Dhabi Commercial Bank",
+    "ru": "Абу-Даби Коммерческий Банк"
+  },
+  {
     "caption": "Ак Барс",
     "code": "akbars",
-    "search": ["акбарс", "акбарсбанк"]
+    "search": ["акбарс", "акбарсбанк", "akbarsbank"]
   },
   {
     "caption": "Альфа-Банк",
@@ -10,14 +18,35 @@
     "search": ["альфабанк"]
   },
   {
+    "caption": "Altabank",
+    "code": "altabankusa",
+    "country": "US"
+  },
+  {
     "caption": "Bank of China",
     "code": "bankofchina",
-    "search": ["банкофчайна", "boc"]
+    "search": ["банкофчайна", "boc"],
+    "country": "CN"
   },
   {
     "caption": "Bank of Georgia",
     "code": "bankofgeorgia",
-    "search": ["банкофджорджа", "банкофджеорджия", "bog"]
+    "search": ["банкофджорджа", "банкофджеорджия", "bog"],
+    "country": "GE"
+  },
+  {
+    "caption": "Barclays",
+    "code": "barclaysgb",
+    "search": ["barclaysbank", "барклайсбанк"],
+    "country": "GB"
+  },
+  {
+    "caption": "BBVA",
+    "code": "bbvaes",
+    "search": ["bbvabank", "ббва"],
+    "en": "Banco Bilbao Vizcaya Argentaria",
+    "country": "ES",
+    "monotone": true
   },
   {
     "caption": "Бланк",
@@ -31,9 +60,52 @@
     "search": ["бнппарибас", "bnpparibas", "бнп париба", "бнп", "bnpp", "paribas", "bnppb", "бнпб"]
   },
   {
+    "caption": "Bank of America",
+    "code": "boaus",
+    "search": ["банкофамерика", "bankofamerica"],
+    "country": "US"
+  },
+  {
+    "caption": "Bank of Cyprus",
+    "code": "boccy",
+    "search": ["банккиприа", "bankofcyprus", "boccyprus"]
+  },
+  {
+    "caption": "CaixaBank",
+    "code": "caixabankes",
+    "search": ["кайшабанк", "caixabank"],
+    "country": "ES"
+  },
+  {
+    "caption": "Caja Social",
+    "code": "cajasocialbancoes",
+    "search": ["каха сошиал", "cajasocialbank", "cajasocial"],
+    "country": "ES"
+  },
+  {
+    "caption": "CBD",
+    "code": "cbduae",
+    "en": "Commercial Bank of Dubai",
+    "ru": "Коммерческий банк Дубая",
+    "search": ["cbdbank", "коммерческий банк дубая", "commercialbank"],
+    "country": "AE"
+  },
+  {
+    "caption": "CIBC",
+    "code": "cibccanada",
+    "search": ["cibc", "сибканада", "cibccanada"],
+    "country": "CA"
+  },
+  {
     "caption": "Citibank",
     "code": "citibank",
     "search": ["ситибанк", "citibank"]
+  },
+  {
+    "caption": "Commerzbank",
+    "code": "commerzbank",
+    "search": ["коммерцбанк", "commerzbank", "cb"],
+    "country": "DE"
   },
   {
     "caption": "Credit Europe",
@@ -57,12 +129,19 @@
   {
     "caption": "Erste",
     "code": "erstebank",
-    "search": ["эрстебанк", "erstebank", "erstegroup"]
+    "search": ["эрстебанк", "erstegroup"]
   },
   {
     "caption": "Eurobank",
     "code": "eurobank",
     "search": ["евробанк", "eurobank", "hellenicbank"]
+  },
+  {
+    "caption": "First Abu Dhabi",
+    "code": "fabuae",
+    "search": ["fab", "firstabudhabibank"],
+    "country": "AE",
+    "en": "First Abu Dhabi Bank"
   },
   {
     "caption": "Финам",
@@ -71,8 +150,8 @@
   },
   {
     "caption": "Finom",
-    "code": "finombank",
-    "search": ["финомбанк", "finom"],
+    "code": "finom",
+    "search": ["финомбанк", "finom","finombank"],
     "country": "NL"
   },
   {
@@ -118,6 +197,11 @@
     "search": ["инг банк", "ingbank", "ингбанк"]
   },
   {
+    "caption": "Intesa",
+    "code": "intesa",
+    "search": ["интесасанпаоло", "intesasanpaolo"]
+  },
+  {
     "caption": "JP Morgan",
     "code": "jpmorgan",
     "search": ["джейпи морган", "jpmorgan", "jpm", "jp morgan", "morgan chase", "jp морган", "jpmc", "жпморган"]
@@ -133,12 +217,40 @@
     "search": ["каспибанк", "kaspibank", "каспи", "kaspikz"]
   },
   {
+    "caption": "Mashreq",
+    "code": "mashrequae",
+    "search": ["mashreq", "машрекбанк", "mashreqbank"],
+    "country": "AE"
+  },
+  {
+    "caption": "МБанк",
+    "code": "mbankkg",
+    "country": "KG"
+  },
+  {
+    "caption": "mBank",
+    "code": "mbankpl",
+    "search": ["multibank"],
+    "country": "PL"
+  },
+  {
     "caption": "Модульбанк",
     "code": "modulbank"
   },
   {
+    "caption": "Monobank",
+    "code": "monobankua",
+    "search": ["монобанк", "monobank"],
+    "country": "UA",
+    "monotone": true
+  },
+  {
     "caption": "МТС Банк",
     "code": "mtsbank"
+  },
+  {
+    "caption": "N26",
+    "code": "n26"
   },
   {
     "caption": "OTP Bank",
@@ -154,6 +266,10 @@
     "caption": "Pay Pal",
     "code": "paypal",
     "search": ["пейпал"]
+  },
+  {
+    "caption": "PKO Bank",
+    "code": "pkobankpl"
   },
   {
     "caption": "Почта Банк",
@@ -175,9 +291,20 @@
     "monotone": true
   },
   {
+    "caption": "рокет",
+    "code": "rocketbankru",
+    "search": ["рокетбанк", "rocketbank"]
+  },
+  {
     "caption": "Россельхозбанк",
     "code": "rshb",
     "search": ["рсхб", "россельхоз", "rshb", "rshbbank"]
+  },
+  {
+    "caption": "Sabadell",
+    "code": "sabadell",
+    "search": ["сабадельбанк", "sabadellbank", "bancosabadell"],
+    "country": "ES"
   },
   {
     "caption": "Santander",
@@ -195,9 +322,26 @@
     "code": "sbp"
   },
   {
+    "caption": "Solaris",
+    "code": "solarisbankde",
+    "search": ["соларисбанк"],
+    "country": "DE"
+  },
+  {
+    "caption": "SozialBank",
+    "code": "sozialbankat",
+    "search": ["социальбанк", "sozialbank"]
+  },
+  {
     "caption": "Т-Банк",
     "code": "tbank",
     "search": ["tbank", "tinkoff", "tinkov", "тинькофф", "тиньков", "tinkoffbank", "тинькоффбанк", "тинька"]
+  },
+  {
+    "caption": "TBC Bank",
+    "code": "tbcbankge",
+    "search": ["тбцбанк", "tbcbank", "tbc"],
+    "country": "GE"
   },
   {
     "caption": "Точка",
@@ -245,6 +389,10 @@
     "caption": "Wildberries",
     "code": "wildberries",
     "search": ["wildberriesбанк", "wildberries bank", "wb банк", "wbбанк", "вайлдберризбанк"]
+  },
+  {
+    "caption": "Wise",
+    "code": "wise"
   },
   {
     "caption": "Яндекс",

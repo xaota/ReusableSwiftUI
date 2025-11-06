@@ -13,7 +13,7 @@ public final class BankStore: @unchecked Sendable {
     return instance
   }()
 
-  private var bankJSON: [BankJSON] = []
+  public var bankJSON: [BankJSON] = []
   private init() {}
 
   // You can keep this internal if you don't want external callers to invoke it.
