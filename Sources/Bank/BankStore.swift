@@ -29,7 +29,6 @@ public final class BankStore: @unchecked Sendable {
 
   public static func filter(_ text: String) -> [BankJSON] {
     let part = searchable(text)
-//    if part.count < 3 {
     if part.isEmpty {
       return []
     }

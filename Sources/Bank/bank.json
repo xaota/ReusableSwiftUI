@@ -10,7 +10,7 @@
   {
     "caption": "Ак Барс",
     "code": "akbars",
-    "search": ["акбарс", "акбарсбанк", "akbarsbank"]
+    "search": ["акбарс", "акбарсбанк", "akbarsbank", "абб", "abb"]
   },
   {
     "caption": "Альфа-Банк",
@@ -55,6 +55,10 @@
     "monotone": true
   },
   {
+    "caption": "BlueOrange",
+    "code": "blueorangebank"
+  },
+  {
     "caption": "BNP Paribas",
     "code": "bnpparibasbank",
     "search": ["бнппарибас", "bnpparibas", "бнп париба", "бнп", "bnpp", "paribas", "bnppb", "бнпб"]
@@ -91,10 +95,20 @@
     "country": "AE"
   },
   {
+    "caption": "Cyprus Development",
+    "code": "cdbcy",
+    "search": ["cdbcyprus", "кипрдевелопментбанк", "cyprusdevelopmentbank"]
+  },
+  {
     "caption": "CIBC",
     "code": "cibccanada",
     "search": ["cibc", "сибканада", "cibccanada"],
     "country": "CA"
+  },
+  {
+    "caption": "Citadele",
+    "code": "citadelelv",
+    "search": ["цитаделе", "citadelebank"]
   },
   {
     "caption": "Citibank",
@@ -135,6 +149,13 @@
     "caption": "Eurobank",
     "code": "eurobank",
     "search": ["евробанк", "eurobank", "hellenicbank"]
+  },
+  {
+    "caption": "Expobank",
+    "code": "expobankru",
+    "search": ["экспобанк"],
+    "country": "RU",
+    "markets": ["RU", "LV"]
   },
   {
     "caption": "First Abu Dhabi",
@@ -272,6 +293,11 @@
     "code": "pkobankpl"
   },
   {
+    "caption": "PNB",
+    "code": "pnbph",
+    "country": "PH"
+  },
+  {
     "caption": "Почта Банк",
     "code": "pochta-bank"
   },
@@ -322,6 +348,10 @@
     "code": "sbp"
   },
   {
+    "caption": "SEB",
+    "code": "sebunibankalv"
+  },
+  {
     "caption": "Solaris",
     "code": "solarisbankde",
     "search": ["соларисбанк"],
@@ -331,6 +361,10 @@
     "caption": "SozialBank",
     "code": "sozialbankat",
     "search": ["социальбанк", "sozialbank"]
+  },
+  {
+    "caption": "Swedbank",
+    "code": "swedbank"
   },
   {
     "caption": "Т-Банк",

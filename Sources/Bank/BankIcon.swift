@@ -76,7 +76,7 @@ public struct BankIcon: View {
               VStack {
                 BankIcon(bank: bank.code)
                   .frame(width: size, height: size)
-                Text(bank.caption).font(.caption)
+                Text("\(index + 1) " + bank.caption).font(.caption)
               }
               .padding()
             } else {
