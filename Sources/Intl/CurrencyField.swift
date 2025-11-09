@@ -23,11 +23,15 @@ public struct CurrencyField: View {
   }
 
   public var body: some View {
+    let selectCurrencyString = String(localized: "popular", bundle: .module)
+    let popularCurrenciesString = String(localized: "popular", bundle: .module)
+    let otherCurrenciesString = String(localized: "other", bundle: .module)
+
     Menu {
       Section {
         Picker(selection: $selectedCurrencyList, label: EmptyView()) {
-          Text("popular").tag(CurrencyListENUM.popular)
-          Text("other").tag(CurrencyListENUM.other)
+          Text(popularCurrenciesString).tag(CurrencyListENUM.popular)
+          Text(otherCurrenciesString).tag(CurrencyListENUM.other)
         }
         .pickerStyle(.segmented)
         .labelsHidden()
@@ -51,7 +55,7 @@ public struct CurrencyField: View {
     } label: {
       HStack {
         CurrencySignView(currency: value)
-        Label("select", systemImage: "chevron.down").labelStyle(.iconOnly)
+        Label(selectCurrencyString, systemImage: "chevron.down").labelStyle(.iconOnly)
       }
     }
     .onChange(of: selectedCurrencyList) { newValue in
@@ -65,9 +69,9 @@ public struct CurrencyField: View {
   }
 
   static let general: [CurrencyEnum] = [.USD, .EUR, .RUB]
-  static let popular: [CurrencyEnum] = [.AED, .GEL, .TRY, .THB, .LKR, .KZT, .AMD, .ILS, .VND, .MNT, .KGS, .BYN]
+  static let popular: [CurrencyEnum] = [.CNY, .AED, .GEL, .TRY, .THB, .LKR, .KZT, .AMD, .ILS, .VND, .MNT, .KGS, .BYN]
   static let other: [CurrencyEnum] = [
-    .CNY, .KHR, .BGN, .AZN, .LAK, .INR, .KRW,
+    .KHR, .BGN, .AZN, .LAK, .INR, .KRW,
     .GBP, .CHF, .JPY, .PLN, .SEK, .UAH,
     .BTC
   ]

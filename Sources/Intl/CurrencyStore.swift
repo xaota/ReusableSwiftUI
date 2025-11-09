@@ -82,16 +82,3 @@ func decodeCurrencyJSON(file: String = "currency", fileExtension: String = "json
 
   return loadedFile
 }
-
-//public static let general: [CurrencyType] = [.USD, .EUR, .RUB]
-//public static let popular: [CurrencyType] = [.GEL, .TRY, .THB, .LKR, .KZT, .AMD, .ILS, .VND, .MNT, .KGS, .BYN]
-//public static let addition: [CurrencyType] = [.CNY, .KHR, .BGN, .AZN, .LAK, .INR, .KRW, .AED]
-//public static let crypto: [CurrencyType] = [.BTC]
-//public static let other: [CurrencyType] = [.GBP, .CHF, .JPY, .PLN, .SEK, .UAH]
-//public static let all: [CurrencyType] = CurrencyType.allCases.filter {
-//  !CurrencyType.general.contains($0) &&
-//  !CurrencyType.popular.contains($0) &&
-//  !CurrencyType.addition.contains($0) &&
-//  !CurrencyType.crypto.contains($0) &&
-//  !CurrencyType.other.contains($0)
-//  }

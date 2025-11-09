@@ -50,7 +50,8 @@ let package = Package(
       name: "Intl",
       dependencies: [],
       resources: [
-        .process("currency.json")
+        .process("currency.json"),
+        .process("Localizable.xcstrings")
       ]
     ),
     .target(
