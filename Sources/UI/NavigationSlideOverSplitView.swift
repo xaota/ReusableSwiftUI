@@ -37,6 +37,7 @@ public struct NavigationSlideOverSplitView<Content: View, DetailsContent: View, 
           // #if os(macOS)
           // .navigationSplitViewColumnWidth(min: 180, ideal: 200)
           // #endif
+          .listStyle(.sidebar)
           .toolbar(removing: .sidebarToggle)
           .toolbar {
             ToolbarItem(placement: .bottomBar) {
