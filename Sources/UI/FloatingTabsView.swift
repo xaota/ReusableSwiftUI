@@ -7,11 +7,23 @@
 
 import SwiftUI
 
+public struct FloatingTab {
+  public var name: String
+  public var icon: String?
+  var content: () -> AnyView
+
+  public init<V: View>(_ name: String, icon: String? = nil, @ViewBuilder content: @escaping () -> V) {
+    self.name = name
+    self.icon = icon
+    self.content = { AnyView(content()) }
+  }
+}
+
 public struct FloatingTabsView: View {
   let tabs: [FloatingTab]
   @Binding var selectedIndex: Int
 
-  @Namespace private var tabItemTransition
+  @Namespace private var highlightmenuitem
 
   public init(
     tabs: [FloatingTab],
@@ -25,6 +37,7 @@ public struct FloatingTabsView: View {
     TabView(selection: $selectedIndex) {
       ForEach(tabs.indices, id: \.self) { index in
         let tab = tabs[index]
+
         Tab(tab.name, systemImage: tab.icon ?? "", value: index) {
           tab.content()
         }
@@ -35,13 +48,13 @@ public struct FloatingTabsView: View {
       ScrollViewReader { scrollView in
         ScrollView(.horizontal, showsIndicators: false) {
           HStack {
-            // Place your tab bar items here if needed, using tabs.indices
              ForEach(tabs.indices, id: \.self) { index in
                let tab = tabs[index]
+
                FloatingTabView(
                 tab: tab,
                 isActive: selectedIndex == index,
-                namespace: tabItemTransition
+                namespace: highlightmenuitem
                )
                .padding(.leading, index == 0 ? 8 : 0)
                .padding(.trailing, index == tabs.count - 1 ? 8 : 0)
@@ -58,26 +71,13 @@ public struct FloatingTabsView: View {
             scrollView.scrollTo(index, anchor: .center)
           }
         }
-//        .padding(8)
         .padding(.vertical, 8)
         .background(.ultraThinMaterial)
+        .glassEffect()
         .cornerRadius(24)
         .padding(.horizontal)
       }
     }
-  }
-}
-
-public struct FloatingTab {
-  public var name: String
-  public var icon: String?
-  var content: () -> AnyView
-
-  // Public initializer that accepts any View and erases it internally
-  public init<V: View>(_ name: String, icon: String? = nil, @ViewBuilder content: @escaping () -> V) {
-    self.name = name
-    self.icon = icon
-    self.content = { AnyView(content()) }
   }
 }
 
@@ -98,6 +98,7 @@ struct FloatingTabView: View {
         .foregroundColor(.white)
         .background(Capsule().foregroundColor(accent))
         .matchedGeometryEffect(id: "highlightmenuitem", in: namespace)
+        .glassEffect()
     } else {
       Text(tab.name)
         .font(.subheadline)
