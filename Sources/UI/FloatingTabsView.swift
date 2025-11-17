@@ -22,15 +22,21 @@ public struct FloatingTab {
 public struct FloatingTabsView: View {
   let tabs: [FloatingTab]
   @Binding var selectedIndex: Int
+  @Binding var showTabBar: Bool
 
   @Namespace private var highlightmenuitem
 
+  @State private var offset: CGFloat = -12
+  @State private var opacity: Double = 1
+
   public init(
     tabs: [FloatingTab],
-    selectedIndex: Binding<Int>
+    selectedIndex: Binding<Int>,
+    showTabBar: Binding<Bool> = .constant(true)
   ) {
     self.tabs = tabs
     self._selectedIndex = selectedIndex
+    self._showTabBar = showTabBar
   }
 
   public var body: some View {
@@ -39,44 +45,65 @@ public struct FloatingTabsView: View {
         let tab = tabs[index]
 
         Tab(tab.name, systemImage: tab.icon ?? "", value: index) {
-          tab.content()
+          tab
+            .content()
+            .toolbar(.hidden, for: .tabBar)
         }
       }
     }
-    .tabViewStyle(.page(indexDisplayMode: .never))
-    .overlay(alignment: .bottom) {
-      ScrollViewReader { scrollView in
-        ScrollView(.horizontal, showsIndicators: false) {
-          HStack {
-             ForEach(tabs.indices, id: \.self) { index in
-               let tab = tabs[index]
-
-               FloatingTabView(
-                tab: tab,
-                isActive: selectedIndex == index,
-                namespace: highlightmenuitem
-               )
-               .padding(.leading, index == 0 ? 8 : 0)
-               .padding(.trailing, index == tabs.count - 1 ? 8 : 0)
-               .onTapGesture {
-                 withAnimation(.easeInOut) {
-                   selectedIndex = index
-                 }
-               }
-             }
-          }
-        }
-        .onChange(of: selectedIndex) { index in
-          withAnimation {
-            scrollView.scrollTo(index, anchor: .center)
-          }
-        }
-        .padding(.vertical, 8)
-        .background(.ultraThinMaterial)
-        .glassEffect()
-        .cornerRadius(24)
-        .padding(.horizontal)
+    // .tabViewStyle(.page(indexDisplayMode: .never))
+    .safeAreaInset(edge: .bottom) { // .overlay(alignment: .bottom) {
+      FloatingTabsPanel(tabs: tabs, selectedIndex: $selectedIndex, highlightmenuitem: highlightmenuitem)
+        .offset(y: offset)
+        .opacity(opacity)
+    }
+    .onChange(of: showTabBar) { value in
+      withAnimation() {
+        offset = value ? -12 : 50
+        opacity = value ? 1 : 0
       }
+    }
+  }
+}
+
+struct FloatingTabsPanel: View {
+  var tabs: [FloatingTab]
+  @Binding var selectedIndex: Int
+  let highlightmenuitem: Namespace.ID
+
+  var body: some View {
+    ScrollViewReader { scrollView in
+      ScrollView(.horizontal, showsIndicators: false) {
+        HStack {
+          ForEach(tabs.indices, id: \.self) { index in
+            let tab = tabs[index]
+
+            FloatingTabView(
+              tab: tab,
+              isActive: selectedIndex == index,
+              namespace: highlightmenuitem
+            )
+            .padding(.leading, index == 0 ? 8 : 0)
+            .padding(.trailing, index == tabs.count - 1 ? 8 : 0)
+            .onTapGesture {
+              withAnimation(.easeInOut) {
+                selectedIndex = index
+              }
+            }
+          }
+        }
+      }
+      .onChange(of: selectedIndex) { index in
+        withAnimation {
+          scrollView.scrollTo(index, anchor: .center)
+        }
+      }
+      .padding(.vertical, 8)
+      // .background(.ultraThinMaterial)
+      .glassEffect()
+      .cornerRadius(32)
+      .padding(.horizontal)
+      .padding(.horizontal)
     }
   }
 }
@@ -92,15 +119,17 @@ struct FloatingTabView: View {
   var body: some View {
     if isActive {
       Text(tab.name)
+        .lineLimit(1).fixedSize()
         .font(.subheadline)
-        .padding(.horizontal)
-        .padding(.vertical, 8)
+        .padding()
+//        .padding(.horizontal)
+//        .padding(.vertical, 8)
         .foregroundColor(.white)
         .background(Capsule().foregroundColor(accent))
         .matchedGeometryEffect(id: "highlightmenuitem", in: namespace)
-        .glassEffect()
     } else {
       Text(tab.name)
+        .lineLimit(1).fixedSize()
         .font(.subheadline)
         .padding(.horizontal)
         .padding(.vertical, 8)
@@ -114,7 +143,12 @@ struct FloatingTabView: View {
 
   let tabs: [FloatingTab] = [
     FloatingTab("Операции", icon: "star") {
-      Text("список платежей")
+      NavigationStack {
+        List {
+          Text("список платежей")
+        }
+        .navigationTitle("Операции")
+      }
     },
     FloatingTab("Деньги") {
       Text("список кошельков")
@@ -126,6 +160,7 @@ struct FloatingTabView: View {
       Text("список меток")
     }
   ]
+
 
   FloatingTabsView(tabs: tabs, selectedIndex: $selectedIndex)
 }
