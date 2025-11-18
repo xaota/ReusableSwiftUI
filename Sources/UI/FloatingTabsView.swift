@@ -20,13 +20,15 @@ public struct FloatingTab {
 }
 
 public struct FloatingTabsView: View {
+  static let defaultOffset: CGFloat = 12
+
   let tabs: [FloatingTab]
   @Binding var selectedIndex: Int
   @Binding var showTabBar: Bool
 
   @Namespace private var highlightmenuitem
 
-  @State private var offset: CGFloat = -12
+  @State private var offset: CGFloat = FloatingTabsView.defaultOffset
   @State private var opacity: Double = 1
 
   public init(
@@ -59,7 +61,7 @@ public struct FloatingTabsView: View {
     }
     .onChange(of: showTabBar) { value in
       withAnimation() {
-        offset = value ? -12 : 50
+        offset = value ? FloatingTabsView.defaultOffset : 50
         opacity = value ? 1 : 0
       }
     }

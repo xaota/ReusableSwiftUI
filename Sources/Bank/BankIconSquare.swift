@@ -78,10 +78,10 @@ public struct BankIconSquare: View {
 }
 
 #Preview {
-  var banks: [BankJSON] = BankStore.json.bankJSON
-  var cols = 3
-  var size: CGFloat = 64
-  var rows = Int(ceil(Double(banks.count) / Double(cols)))
+  let banks: [BankJSON] = BankStore.json.bankJSON
+  let cols: Int = 3
+  let size: CGFloat = 64
+  let rows: Int = Int(ceil(Double(banks.count) / Double(cols)))
 
   ScrollView {
     Grid() {

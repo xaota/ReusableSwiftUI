@@ -1,0 +1,15 @@
+<svg viewBox="1 1 38 38">
+  <rect width="40" height="40" fill="#F2F4F6" />
+  <path
+    d="M30.4095 17.236L24.7212 11.5L19.0329 17.236L24.7212 22.9719L30.4095 17.236Z" fill="#0095AD"
+    stroke="black" stroke-width="0.500001" />
+  <path
+    d="M38.1546 20.9029L32.4663 15.167L26.778 20.9029L32.4663 26.6389L38.1546 20.9029Z" fill="white"
+    stroke="black" stroke-width="0.500001" />
+  <path
+    d="M22.4071 20.6442L16.7188 14.9082L11.0304 20.6442L16.7188 26.3801L22.4071 20.6442Z"
+    fill="white" stroke="black" stroke-width="0.500001" />
+  <path
+    d="M13.3768 23.0177L7.68848 17.2817L2.00015 23.0177L7.68848 28.7536L13.3768 23.0177Z"
+    fill="#0095AD" stroke="black" stroke-width="0.500001" />
+</svg>
