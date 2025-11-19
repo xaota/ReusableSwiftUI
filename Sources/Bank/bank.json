@@ -42,7 +42,12 @@
     "search": ["аксабанк", "axabank", "axa"],
     "country": "FR"
   },
-
+  {
+    "caption": "BancoPosta",
+    "code": "bancopostait",
+    "search": ["poste italiane"],
+    "country": "IT"
+  },
   {
     "caption": "Bank of China",
     "code": "bankofchina",
@@ -109,6 +114,12 @@
     "country": "IT"
   },
   {
+    "caption": "bunq",
+    "code": "bunq",
+    "search": ["bunqbank"],
+    "country": "NL"
+  },
+  {
     "caption": "CaixaBank",
     "code": "caixabankes",
     "search": ["кайшабанк", "caixabank"],
@@ -126,6 +137,12 @@
     "country": "IT"
   },
   {
+    "caption": "CDP",
+    "code": "cassadepositieprestiti",
+    "search": ["cdpbank", "cdepbank", "cassa depositi e prestiti"],
+    "country": "IT"
+  },
+  {
     "caption": "CBD",
     "code": "cbduae",
     "en": "Commercial Bank of Dubai",
@@ -137,6 +154,11 @@
     "caption": "Cyprus Development",
     "code": "cdbcy",
     "search": ["cdbcyprus", "кипрдевелопментбанк", "cyprusdevelopmentbank"]
+  },
+  {
+    "caption": "Mutui CheBanca",
+    "code": "chebancait",
+    "country": "IT"
   },
   {
     "caption": "CIBC",
@@ -161,9 +183,33 @@
     "country": "DE"
   },
   {
+    "caption": "Credem",
+    "code": "credemimpreseit",
+    "search": ["credembancadmpresa"],
+    "country": "IT"
+  },
+  {
+    "caption": "Credit Agricole",
+    "code": "creditagricole",
+    "search": ["кредитагриколь","creditagricole","creditagricolebank","cariparmapiccoleimprese", "creval","creditovaltellinese"],
+    "country": "IT"
+  },
+    {
+    "caption": "Credit cooperatif",
+    "code": "creditcooperatif",
+    "search": ["creditcooperatifbank"],
+    "country": "FR"
+  },
+  {
     "caption": "Credit Europe",
     "code": "crediteurope",
     "search": ["кредитевропа", "crediteurope"]
+  },
+  {
+    "caption": "Credit Mutuel",
+    "code": "creditmutuelfr",
+    "search": ["banquecreditmutuel", "creditmutuelbank"],
+    "country": "FR"
   },
   {
     "caption": "Credit Suisse",
@@ -178,6 +224,16 @@
     "country": "DE",
     "brand": ["#003f8a"],
     "monotone": true
+  },
+  {
+    "caption": "Deutsche Kreditbank",
+    "code": "dkbde",
+    "country": "DE"
+  },
+  {
+    "caption": "DZ",
+    "code": "dzbankde",
+    "country": "DE"
   },
   {
     "caption": "Erste",
@@ -211,16 +267,40 @@
     "search": ["финамбанк", "finam"]
   },
   {
+    "caption": "Fineco",
+    "code": "finecoit",
+    "search": ["finecobank", "банкфинеко"],
+    "country": "IT"
+  },
+  {
     "caption": "Finom",
     "code": "finom",
     "search": ["финомбанк", "finom","finombank"],
     "country": "NL"
   },
   {
+    "caption": "Fortuneo",
+    "code": "fortuneofr",
+    "search": ["форчунэо", "фортунео", "fortuneobank"],
+    "country": "FR"
+  },
+  {
+    "caption": "FYRST",
+    "code": "fyrstde",
+    "search": ["фирстбанк", "fyrstbank"],
+    "country": "DE"
+  },
+  {
     "caption": "Газпромбанк",
     "code": "gazprombank",
     "search": ["газпром", "gazprom"],
     "country": "RU"
+  },
+  {
+    "caption": "Generali",
+    "code": "generaliit",
+    "search": ["generalibank", "генералибанк"],
+    "country": "IT"
   },
   {
     "caption": "Goldman Sachs",
@@ -234,10 +314,20 @@
     "country": "TR"
   },
   {
+    "caption": "Hello",
+    "code": "hello",
+    "search": ["consorsbank"]
+  },
+  {
     "caption": "Хайс",
     "code": "hicebank",
     "country": "RU",
     "monotone": true
+  },
+  {
+    "caption": "Holvi",
+    "code": "holvi",
+    "country": "FI"
   },
   {
     "caption": "Home Credit",
@@ -283,6 +373,46 @@
     "search": ["каспибанк", "kaspibank", "каспи", "kaspikz"]
   },
   {
+    "caption": "KfW",
+    "code": "kfwde",
+    "country": "DE"
+  },
+  {
+    "caption": "Klarna",
+    "code": "klarna",
+    "search": ["кларна", "klarnabank"],
+    "country": "SE"
+  },
+  {
+    "caption": "Kontist",
+    "code": "kontist",
+    "search": ["контнист", "kontistbank"],
+    "country": "DE"
+  },
+  {
+    "caption": "La Banque Postale",
+    "code": "labanquepostalefr",
+    "search": ["лабанкпосталь", "labanquepostalebank"],
+    "country": "FR"
+  },
+  {
+    "caption": "LBBW",
+    "code": "lbbwde",
+    "search": ["львббанк", "lbbwbank", "landesbankbadenwurttemberg"],
+    "country": "DE"
+  },
+  {
+    "caption": "LCL",
+    "code": "lclfr",
+    "search": ["лклбанк", "lclbank", "lecreditlyonnais"],
+    "country": "FR"
+  },
+  {
+    "caption": "Lloyds",
+    "code": "lloydsgb",
+    "country": "GB"
+  },
+  {
     "caption": "Mashreq",
     "code": "mashrequae",
     "search": ["mashreq", "машрекбанк", "mashreqbank"],
@@ -300,6 +430,12 @@
     "country": "PL"
   },
   {
+    "caption": "Mediobanca",
+    "code": "mediobancait",
+    "country": "IT",
+    "monotone": true
+  },
+  {
     "caption": "Mediolanum",
     "code": "mediolanumit",
     "search": ["банкамедиоланум", "bancamediolanum"],
@@ -311,11 +447,27 @@
     "country": "RU"
   },
   {
+    "caption": "Moneze",
+    "code": "monezegb",
+    "country": "GB"
+  },
+  {
     "caption": "Monobank",
     "code": "monobankua",
     "search": ["монобанк", "monobank"],
     "country": "UA",
     "monotone": true
+  },
+  {
+    "caption": "Monzo",
+    "code": "monzogb",
+    "country": "GB"
+  },
+  {
+    "caption": "MPS",
+    "code": "mpsit",
+    "search": ["монте дей паски ди сиена", "banca monte dei paschi di siena", "mpsbank"],
+    "country": "IT"
   },
   {
     "caption": "МТС",
@@ -325,7 +477,29 @@
   {
     "caption": "N26",
     "code": "n26",
-    "search": ["number26bank", "n26bank"],
+    "search": ["number26bank", "n26bank"]
+  },
+  {
+    "caption": "NORD/LB",
+    "code": "nordlbde",
+    "search": ["norddeutsche landesbank girozentrale"],
+    "country": "DE"
+  },
+  {
+    "caption": "Norisbank",
+    "code": "norisbankde",
+    "country": "DE"
+  },
+  {
+    "caption": "NRW",
+    "code": "nrwde",
+    "search": ["nrwbank", "north rhine-westphalia"],
+    "country": "DE"
+  },
+  {
+    "caption": "Orange",
+    "code": "orangebankfr",
+    "country": "FR"
   },
   {
     "caption": "OTP Bank",
@@ -344,9 +518,19 @@
     "search": ["пейпал"]
   },
   {
+    "caption": "Penta",
+    "code": "pentade",
+    "country": "DE"
+  },
+  {
     "caption": "PKO Bank",
     "code": "pkobankpl",
     "country": "PL"
+  },
+  {
+    "caption": "PLATA",
+    "code": "platacardmx",
+    "country": "MX"
   },
   {
     "caption": "PNB",
@@ -359,10 +543,20 @@
     "country": "RU"
   },
   {
+    "caption": "Postbank",
+    "code": "postbankde",
+    "country": "DE"
+  },
+  {
     "caption": "Промсвязьбанк",
     "code": "psbank",
     "search": ["промсвязьбанк", "промсвязь", "psb", "promsvyazbank"],
     "country": "RU"
+  },
+  {
+    "caption": "Qonto",
+    "code": "qontofr",
+    "country": "FR"
   },
   {
     "caption": "Raiffeisen",
@@ -416,8 +610,23 @@
     "country": "RU"
   },
   {
+    "caption": "Royal Bank of Scotland",
+    "code": "scotlandroyal",
+    "country": "GB"
+  },
+  {
     "caption": "SEB",
     "code": "sebunibankalv"
+  },
+  {
+    "caption": "Sella",
+    "code": "sellait",
+    "country": "IT"
+  },
+  {
+    "caption": "Societe Generale",
+    "code": "societegeneralefr",
+    "country": "FR"
   },
   {
     "caption": "Solaris",
@@ -431,8 +640,18 @@
     "search": ["социальбанк", "sozialbank"]
   },
   {
+    "caption": "Starling",
+    "code": "starlinggb",
+    "country": "GB"
+  },
+  {
     "caption": "Swedbank",
     "code": "swedbank"
+  },
+  {
+    "caption": "Tandem",
+    "code": "tandemgb",
+    "country": "GB"
   },
   {
     "caption": "Т-Банк",
@@ -450,6 +669,16 @@
     "code": "tochka",
     "search": ["точкабанк", "tochkabank"],
     "monotone": true
+  },
+  {
+    "caption": "Treezor",
+    "code": "treezorfr",
+    "country": "FR"
+  },
+  {
+    "caption": "UBI",
+    "code": "ubibancait",
+    "country": "IT"
   },
   {
     "caption": "УБРР",
@@ -480,6 +709,11 @@
     "code": "vkpay",
     "search": ["вкпей", "вкпэй", "vkpay", "vk pay", "vkontakte", "вконтакте"],
     "country": "RU"
+  },
+  {
+    "caption": "Volksbank",
+    "code": "volksbankat",
+    "country": "AT"
   },
   {
     "caption": "ВТБ",
