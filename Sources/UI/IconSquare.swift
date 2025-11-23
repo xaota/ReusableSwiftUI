@@ -19,21 +19,36 @@ public struct IconSquare: View {
   var icon: String? = nil
   var text: String? = nil
   var size: CGFloat = 24
+  var scale: CGFloat = 1
 
-  public init(_ icon: String, selected: Bool = false, background: Color = Color.clear, size: CGFloat = 24) {
+  public init(
+    _ icon: String,
+    selected: Bool = false,
+    background: Color = Color.clear,
+    size: CGFloat = 24,
+    scale: CGFloat = 1
+  ) {
     self.icon = icon
       //    self.image =
     self.background = background
     self.selected = selected
     self.size = size
+    self.scale = scale
   }
 
-  public init(text: String, selected: Bool = false, background: Color = Color.clear, size: CGFloat = 24) {
+  public init(
+    text: String,
+    selected: Bool = false,
+    background: Color = Color.clear,
+    size: CGFloat = 24,
+    scale: CGFloat = 1
+  ) {
       //    self.image = Image(text)
     self.text = text
     self.background = background
     self.selected = selected
     self.size = size
+    self.scale = scale
   }
 
   var color: Color {
@@ -53,6 +68,7 @@ public struct IconSquare: View {
     if self.icon != nil {
       Image(systemName: icon!)
         .frame(width: self.size, height: self.size)
+        .scaleEffect(self.scale)
         .padding()
         .foregroundColor(color)
         .backgroundWithColor(color: selected ? (background == .clear ? accent : background) : .clear)
@@ -61,6 +77,7 @@ public struct IconSquare: View {
       Text(text!).font(.title3)
         .fixedSize()
         .frame(width: self.size, height: self.size)
+        .scaleEffect(self.scale)
         .padding()
         .foregroundColor(color)
         .backgroundWithColor(color: selected ? (background == .clear ? accent : background) : .clear)
