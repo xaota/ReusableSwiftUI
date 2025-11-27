@@ -112,14 +112,16 @@ struct SheetWrapper<Content: View>: View {
 
   var body: some View {
     let done = NSLocalizedString("action:done", tableName: "Application", comment: "Done")
-    let close = NSLocalizedString("action:close", tableName: "Application", comment: "Close")
+    /*let close = NSLocalizedString("action:close", tableName: "Application", comment: "Close")*/
 
     NavigationStack {
       content()
         .toolbar {
           if interactiveDismiss != false {
             ToolbarItem(placement: .cancellationAction) {
-              Button(close, systemImage: "xmark") { dismiss() }
+              Button(role: .close) {
+                dismiss()
+              }
             }
           }
 
@@ -128,7 +130,10 @@ struct SheetWrapper<Content: View>: View {
               if icon.isEmpty {
                 Button(done, action: action!)
               } else {
-                Button(action: action!) { Label(confirm, systemImage: icon) }
+                // Button(action: action!) { Label(confirm, systemImage: icon) }
+                Button(role: .confirm, action: action!) {
+                  Label(confirm, systemImage: icon) // .labelStyle(.iconOnly)
+                }
               }
             }
           }
