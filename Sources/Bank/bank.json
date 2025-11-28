@@ -243,7 +243,7 @@
   {
     "caption": "Eurobank",
     "code": "eurobank",
-    "search": ["евробанк", "eurobank", "hellenicbank"],
+    "search": ["евробанк", "eurobank", "hellenicbank", "erb"],
     "country": "GR",
     "markets": ["GR", "CY"]
   },
