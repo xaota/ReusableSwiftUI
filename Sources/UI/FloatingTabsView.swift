@@ -8,11 +8,15 @@
 import SwiftUI
 
 public struct FloatingTab {
-  public var name: String
-  public var icon: String?
+  var name: String
+  var icon: String?
   var content: () -> AnyView
 
-  public init<V: View>(_ name: String, icon: String? = nil, @ViewBuilder content: @escaping () -> V) {
+  public init<V: View>(
+    _ name: String,
+    icon: String? = nil,
+    @ViewBuilder content: @escaping () -> V
+  ) {
     self.name = name
     self.icon = icon
     self.content = { AnyView(content()) }

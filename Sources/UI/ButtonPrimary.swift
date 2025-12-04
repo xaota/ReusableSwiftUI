@@ -10,14 +10,19 @@ import SwiftUI
 public struct ButtonPrimary: View {
   var text: String
   var icon: String
-  var action: () -> Void = {}
   var reverse: Bool = false
+  var action: () -> Void = {}
 
-  public init(_ text: String, icon: String, action: @escaping () -> Void = {}, reverse: Bool = false) {
+  public init(
+    _ text: String,
+    icon: String,
+    reverse: Bool = false,
+    action: @escaping () -> Void = {}
+  ) {
     self.text = text
     self.icon = icon
-    self.action = action
     self.reverse = reverse
+    self.action = action
   }
 
   public var body: some View {

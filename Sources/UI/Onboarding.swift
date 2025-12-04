@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import UI
 
 public struct OnboardingPage {
   var prompt: String
@@ -21,7 +20,7 @@ public struct OnboardingPage {
   }
 }
 
-extension View {
+public extension View {
   public func onboarding (
     pages: [OnboardingPage],
     action: @escaping () -> Void = {},
@@ -35,7 +34,7 @@ extension View {
   }
 }
 
-struct OnboardingController: ViewModifier {
+private struct OnboardingController: ViewModifier {
   var pages: [OnboardingPage]
   var action: () -> Void
 
@@ -52,7 +51,7 @@ struct OnboardingController: ViewModifier {
     self.pages = pages
   }
 
-  public func body(content: Content) -> some View {
+  func body(content: Content) -> some View {
     return content
       .onAppear {
         if !finished {
@@ -71,7 +70,7 @@ struct OnboardingController: ViewModifier {
   }
 }
 
-struct Onboarding: View {
+public struct Onboarding: View {
   @Environment(\.dismiss) private var dismiss
 
   var pages: [OnboardingPage]
@@ -79,7 +78,7 @@ struct Onboarding: View {
 
   @State var selectedIndex: Int = 0
 
-  var body: some View {
+  public var body: some View {
     VStack {
       TabView(selection: $selectedIndex) {
         ForEach(Array(pages.enumerated()), id: \.offset) { index, tab in
@@ -112,25 +111,22 @@ struct Onboarding: View {
 
 #Preview {
   let pages: [OnboardingPage] = [
-    OnboardingPage("Узнать больше") {
-      OnboardingWelcome()
+    OnboardingPage("go to next") {
+      Text("page 1")
     },
     OnboardingPage {
-      OnboardingFeatures()
+      Text("page 2")
     },
-    OnboardingPage("Добавить вклад") {
-      OnboardingBegin()
+    OnboardingPage("finish") {
+      Text("page 3")
     }
   ]
 
   Onboarding(pages: pages)
+
 //  let previewUserDefaults = SampleData.makeAppStorageOnboarding(onboarding: false)
 //
-//  Button("reset user defaults") {
-//    Task {
-//      previewUserDefaults.set(false, forKey: "app:onboarding")
-//    }
-//  }
+//  Text("onboarding sheet demo")
 //    .onboarding()
 //    .defaultAppStorage(previewUserDefaults)
 }
