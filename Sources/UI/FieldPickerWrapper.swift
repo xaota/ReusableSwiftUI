@@ -8,6 +8,8 @@
 import SwiftUI
 
 public struct FieldPickerWrapper<Content: View, PickerContent: View>: View {
+  @Environment(\.isEnabled) private var isEnabled
+
   private var prompt: String
   private var icon: String
   private var isEmpty: Bool
@@ -59,10 +61,14 @@ public struct FieldPickerWrapper<Content: View, PickerContent: View>: View {
           }
         } label: {
           picker()
+            .disabled(!isEnabled)
+            .foregroundStyle(isEnabled ? Color.accentColor : .primary)
         }
       } else {
         Button(action: actionCreate) {
           picker()
+            .disabled(!isEnabled)
+            .foregroundStyle(isEnabled ? Color.accentColor : .primary)
         }
       }
     }
@@ -86,4 +92,5 @@ public struct FieldPickerWrapper<Content: View, PickerContent: View>: View {
     }
   }
   .padding(.horizontal)
+//  .disabled(true)
 }
