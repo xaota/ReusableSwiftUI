@@ -285,6 +285,12 @@
     "country": "FR"
   },
   {
+    "caption": "Freedom",
+    "code": "freedombankkz",
+    "search": ["Фридом"],
+    "country": "KZ"
+  },
+  {
     "caption": "FYRST",
     "code": "fyrstde",
     "search": ["фирстбанк", "fyrstbank"],
