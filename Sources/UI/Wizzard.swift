@@ -47,6 +47,17 @@ public struct Wizzard: View {
     self.cancel = cancel
   }
 
+  public init(
+    pages: [WizzardPage],
+    selectedIndex: Int = 0,
+    finish: @escaping () -> Void
+  ) {
+    self.pages = pages
+    self._selectedIndex = State(initialValue: selectedIndex)
+    self.finish = finish
+    self.cancel = {}
+  }
+
   public var body: some View {
     if let page = pages.indices.contains(selectedIndex)
       ? pages[selectedIndex]

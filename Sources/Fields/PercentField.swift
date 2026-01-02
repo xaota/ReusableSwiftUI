@@ -23,6 +23,10 @@ public struct PercentField: View {
   ) {
     self.prompt = prompt // NSLocalizedString(prompt, comment: "")
     self._value = value
+    let initial = value.wrappedValue
+    if initial != 0 {
+      self._internalValue = State(initialValue: initial)
+    }
   }
 
   public var body: some View {
@@ -55,10 +59,11 @@ public struct PercentField: View {
 }
 
 #Preview {
-  @Previewable @State var percent: Decimal = 0.0
+  @Previewable @State var percent1: Decimal = 0.0
+  @Previewable @State var percent2: Decimal = 0.1
 
-  PercentField(
-    "0,00",
-    value: $percent
-  )
+  VStack(spacing: 20) {
+    PercentField("0,00", value: $percent1)
+    PercentField("0,00", value: $percent2)
+  }
 }

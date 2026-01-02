@@ -26,6 +26,11 @@ public struct AmountField: View {
     self.prompt = prompt
     self._value = value
     self._currency = currency
+
+    let initial = value.wrappedValue
+    if initial != 0 {
+      self._internalValue = State(initialValue: initial)
+    }
   }
 
   public var body: some View {
@@ -46,20 +51,6 @@ public struct AmountField: View {
           .font(.system(size: 36, weight: .light, design: .rounded))
           .imageScale(.small)
           .padding(.leading, 4)
-
-//      if currencyChange == nil {
-//        Text(sign).scaleEffect(1.8).padding(.leading)
-//      } else {
-//        Button { currencyChange!() } label: {
-//          HStack (alignment: .bottom) {
-//              //              Image(systemName: currency.image).scaleEffect(1.5)
-//            Text(sign).scaleEffect(1.8)
-//            Image(systemName: "chevron.up.chevron.down").foregroundColor(Color.accentColor)
-//          }
-//        }
-//        .padding(.leading)
-//      }
-
       }
     }
   }
@@ -67,27 +58,21 @@ public struct AmountField: View {
 
 #Preview {
   @Previewable @State var amount: Decimal = 0.0
+//  @Previewable @State var amount2: Decimal = 10.0
   @Previewable @State var currency: CurrencyEnum = .RUB
+//  @Previewable @State var currency2: CurrencyEnum = .RUB
 
-  AmountField(
-    "0,00",
-    value: $amount,
-    currency: $currency //,
-    //      currencyChange: {}
-  )
+//  VStack {
+    AmountField(
+      "0,00",
+      value: $amount,
+      currency: $currency
+    )
+
+//    AmountField(
+//      "0,00",
+//      value: $amount2,
+//      currency: $currency2
+//    )
+//  }
 }
-
-
-  //        TextField(prompt, text: $state)
-  //          .onChange(of: state) { newValue in
-  //            let allowedCharacters = "0123456789.,"
-  //            let filtered = newValue.filter { allowedCharacters.contains($0) } .replacing(/\,/, with: ".")
-  //            value = Decimal(string: filtered) ?? 0
-  //          }
-  //                  TextField(
-  //                    prompt,
-  //                    value: $value,
-  //                    format: .currency(code: "").locale(Locale.current).precision(.fractionLength(2)), // (identifier: "en_US")
-  ////                    prompt: Text(prompt)
-  //                  )
-  //                  .background(Color.red)
