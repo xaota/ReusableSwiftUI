@@ -12,17 +12,20 @@ public struct WizzardPage {
   public var backward: String
   public var content: () -> AnyView
   public var complete: () -> Bool
+  public var after: () -> Void
 
   public init<V: View>(
     forward: String = String(localized: "app:action:next"),
     backward: String = String(localized: "app:action:back"),
     @ViewBuilder content: @escaping () -> V,
-    complete: @escaping () -> Bool = { true }
+    complete: @escaping () -> Bool = { true },
+    after: @escaping () -> Void = {},
   ) {
     self.forward = forward
     self.backward = backward
     self.content = { AnyView(content()) }
     self.complete = complete
+    self.after = after
   }
 }
 
@@ -70,6 +73,10 @@ public struct Wizzard: View {
         .safeAreaInset(edge: .bottom, spacing: 0) {
           VStack {
             ButtonPrimary(page.forward, icon: "chevron.right", reverse: true) {
+              withAnimation {
+                page.after()
+              }
+              
               if selectedIndex < pages.count - 1 {
                 withAnimation {
                   selectedIndex += 1
