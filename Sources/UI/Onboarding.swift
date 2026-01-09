@@ -22,11 +22,13 @@ public struct OnboardingPage {
 
 public extension View {
   public func onboarding (
+    _ caption: String = "",
     pages: [OnboardingPage],
     action: @escaping () -> Void = {},
     storageKey: String = "app:onboarding",
   ) -> some View {
     modifier(OnboardingController(
+      caption: caption,
       pages: pages,
       action: action,
       storageKey: storageKey
@@ -35,6 +37,7 @@ public extension View {
 }
 
 private struct OnboardingController: ViewModifier {
+  var caption: String = ""
   var pages: [OnboardingPage]
   var action: () -> Void
 
@@ -42,10 +45,12 @@ private struct OnboardingController: ViewModifier {
   @State var by: Bool = false
 
   init(
+    caption: String = "",
     pages: [OnboardingPage],
     action: @escaping () -> Void = {},
     storageKey: String
   ) {
+    self.caption = caption
     self._finished = AppStorage(wrappedValue: false, storageKey)
     self.action = action
     self.pages = pages
@@ -59,20 +64,23 @@ private struct OnboardingController: ViewModifier {
         }
       }
       .sheet(isPresented: $by) {
-        Onboarding(pages: pages, action: {
-          finished = true
-          action()
-        })
+        NavigationStack {
+          Onboarding(caption: caption, pages: pages) {
+            finished = true
+            action()
+          }
+        }
+        .presentationDragIndicator(.visible)
+        .presentationDetents([.fraction(0.92)])
       }
       // .presentationSizing(.page.sticky(horizontal: false, vertical: true))
-      .presentationDragIndicator(.visible)
-      .presentationDetents([.large])
   }
 }
 
 public struct Onboarding: View {
   @Environment(\.dismiss) private var dismiss
 
+  var caption: String = ""
   var pages: [OnboardingPage]
   var action: () -> Void = {}
 
@@ -106,6 +114,14 @@ public struct Onboarding: View {
         .disabled(pages.isEmpty)
       }
     }
+    .toolbar {
+      ToolbarItem(placement: .principal) {
+        Text(caption)
+          .font(selectedIndex > 0 ? .callout : .title3)
+          .fontWeight(.medium)
+          .fontDesign(.rounded)
+      }
+    }
   }
 }
 
@@ -122,7 +138,7 @@ public struct Onboarding: View {
     }
   ]
 
-  Onboarding(pages: pages)
+  Onboarding(caption: "Onboarding", pages: pages)
 
 //  let previewUserDefaults = SampleData.makeAppStorageOnboarding(onboarding: false)
 //
