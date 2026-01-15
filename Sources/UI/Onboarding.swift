@@ -12,10 +12,10 @@ public struct OnboardingPage {
   var content: () -> AnyView
 
   public init<V: View>(
-    _ prompt: String = String(localized: "app:action:next"),
+    _ prompt: String = "",
     @ViewBuilder content: @escaping () -> V
   ) {
-    self.prompt = prompt
+    self.prompt = prompt.isEmpty ? String(localized: "app:action:next", bundle: .module) : prompt
     self.content = { AnyView(content()) }
   }
 }

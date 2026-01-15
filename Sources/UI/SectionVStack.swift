@@ -17,7 +17,7 @@ public struct SectionVStack<Content: View>: View {
   }
   
   public var body: some View {
-    let string = String.init(localized: String.LocalizationValue(caption))
+    let string = String(localized: String.LocalizationValue(caption))
 
     Section {
       VStack(alignment: .leading, content: content)
