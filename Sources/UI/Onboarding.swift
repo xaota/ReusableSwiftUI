@@ -87,17 +87,16 @@ public struct Onboarding: View {
   @State var selectedIndex: Int = 0
 
   public var body: some View {
-    VStack {
-      TabView(selection: $selectedIndex) {
-        ForEach(Array(pages.enumerated()), id: \.offset) { index, tab in
-          tab
-            .content()
-            .toolbar(.hidden, for: .tabBar)
-            .tag(index)
-        }
+    TabView(selection: $selectedIndex) {
+      ForEach(Array(pages.enumerated()), id: \.offset) { index, tab in
+        tab
+          .content()
+          .toolbar(.hidden, for: .tabBar)
+          .tag(index)
       }
-      .tabViewStyle(.page)
-
+    }
+    .tabViewStyle(.page)
+    .safeAreaInset(edge: .bottom) {
       if !pages.isEmpty {
         let prompt = pages[selectedIndex].prompt
 
