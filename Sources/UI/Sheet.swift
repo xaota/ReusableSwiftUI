@@ -76,12 +76,12 @@ struct SheetController<InnerContent: View>: ViewModifier {
               contentHeight = $0.height + 128
             }
         }
-        #if os(iOS)
+//        #if os(iOS)
         .presentationSizing(.page.sticky(horizontal: false, vertical: true))
-        #endif
-        #if os(iPadOS)
-        .presentationSizing(.form)
-        #endif
+//        #endif
+//        #if os(iPadOS)
+//        .presentationSizing(.form)
+//        #endif
         .presentationDragIndicator(interactiveDismiss ? .visible : .hidden)
         .interactiveDismissDisabled(!interactiveDismiss)
         .presentationDetents([height == .adaptive ? .height(contentHeight) : height])
