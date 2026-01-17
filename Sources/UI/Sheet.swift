@@ -5,7 +5,7 @@ extension View {
     _ title: String = "",
     by: Binding<Bool>,
     icon: String = "",
-    confirm: String = NSLocalizedString("action:done", tableName: "Application", comment: "Done"),
+    confirm: String = "",
     action: (() -> Void)? = nil,
     interactiveDismiss: Bool = true,
     height: Binding<PresentationDetent> = .constant(.large),
@@ -15,7 +15,7 @@ extension View {
       by: by,
       title: title,
       icon: icon,
-      confirm: confirm,
+      confirm: confirm.isEmpty ? String(localized: "action:done", bundle: .module) : confirm,
       action: action,
       interactiveDismiss: interactiveDismiss,
       height: height,
@@ -41,7 +41,7 @@ struct SheetController<InnerContent: View>: ViewModifier {
     by: Binding<Bool>,
     title: String = "",
     icon: String = "",
-    confirm: String = NSLocalizedString("action:done", tableName: "Application", comment: "Done"),
+    confirm: String = String(localized: "action:done", bundle: .module),
     action: (() -> Void)? = nil,
     interactiveDismiss: Bool = true,
     height: Binding<PresentationDetent>,
@@ -76,12 +76,7 @@ struct SheetController<InnerContent: View>: ViewModifier {
               contentHeight = $0.height + 128
             }
         }
-//        #if os(iOS)
-        .presentationSizing(.page.sticky(horizontal: false, vertical: true))
-//        #endif
-//        #if os(iPadOS)
-//        .presentationSizing(.form)
-//        #endif
+        .presentationSizing(.form)
         .presentationDragIndicator(interactiveDismiss ? .visible : .hidden)
         .interactiveDismissDisabled(!interactiveDismiss)
         .presentationDetents([height == .adaptive ? .height(contentHeight) : height])
@@ -102,7 +97,7 @@ struct SheetWrapper<Content: View>: View {
   init(
     caption: String = "",
     icon: String = "",
-    confirm: String = NSLocalizedString("action:done", tableName: "Application", comment: "Done"),
+    confirm: String = String(localized: "action:done", bundle: .module),
     action: (() -> Void)? = nil,
     interactiveDismiss: Bool = false,
     @ViewBuilder content: @escaping () -> Content,
@@ -116,8 +111,7 @@ struct SheetWrapper<Content: View>: View {
   }
 
   var body: some View {
-    let done = NSLocalizedString("action:done", tableName: "Application", comment: "Done")
-    /*let close = NSLocalizedString("action:close", tableName: "Application", comment: "Close")*/
+    let done = String(localized: "action:done", bundle: .module)
 
     NavigationStack {
       content()
@@ -200,7 +194,5 @@ extension PresentationDetent {
 }
 
 private struct AdaptiveDetent: CustomPresentationDetent {
-  static func height(in context: Context) -> CGFloat? {
-    0
-  }
+  static func height(in context: Context) -> CGFloat? { 0 }
 }
