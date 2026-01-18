@@ -63,6 +63,11 @@ public final class CurrencyStore: @unchecked Sendable {
   public func get(_ code: String) -> CurrencyJSON? {
     return self.currencyJSON.first(where: { $0.code == code }) ?? nil
   }
+
+  public static func signature(for currency: CurrencyEnum, fallback: String = "") -> String {
+    let json: CurrencyJSON? = Self.json.by(currency)
+    return json?.sign ?? json?.code ?? fallback
+  }
 }
 
 func decodeCurrencyJSON(file: String = "currency", fileExtension: String = "json") -> [CurrencyJSON] {
