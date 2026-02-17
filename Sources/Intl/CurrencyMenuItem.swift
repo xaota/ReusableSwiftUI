@@ -20,7 +20,7 @@ struct CurrencyMenuItem: View {
 
     let flag: String = json?.flag != nil ? json!.flag! : ""
     let icon: String = json?.icon != nil ? json!.icon! + "sign" : ""
-    let sign: String = json?.sign != nil ? json!.sign! : ""
+    // let sign: String = json?.sign != nil ? json!.sign! : ""
 
     if !flag.isEmpty {
 //      self.image = Image(uiImage: flag.image(pointSize: 20))

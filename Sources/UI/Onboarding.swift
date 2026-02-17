@@ -21,7 +21,7 @@ public struct OnboardingPage {
 }
 
 public extension View {
-  public func onboarding (
+  func onboarding (
     _ caption: String = "",
     pages: [OnboardingPage],
     action: @escaping () -> Void = {},

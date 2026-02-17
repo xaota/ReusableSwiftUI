@@ -34,7 +34,7 @@ public struct AmountField: View {
   }
 
   public var body: some View {
-    let sign: String = CurrencyStore.json.by(currency)?.sign ?? ""
+//    let sign: String = CurrencyStore.json.by(currency)?.sign ?? ""
 
     HCenter {
       HStack(alignment: .center) {
@@ -43,8 +43,8 @@ public struct AmountField: View {
           // .focused($isFocused)
           .keyboardType(.decimalPad)
           .submitLabel(.done)
-          .onChange(of: internalValue) { newValue in
-            value = newValue ?? 0
+          .onChange(of: internalValue) {
+            value = internalValue ?? 0
           }
 
         CurrencyField(value: $currency)

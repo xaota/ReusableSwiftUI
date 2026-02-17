@@ -63,10 +63,10 @@ public struct FloatingTabsView: View {
         .offset(y: offset)
         .opacity(opacity)
     }
-    .onChange(of: showTabBar) { value in
+    .onChange(of: showTabBar) {
       withAnimation() {
-        offset = value ? FloatingTabsView.defaultOffset : 50
-        opacity = value ? 1 : 0
+        offset = showTabBar ? FloatingTabsView.defaultOffset : 50
+        opacity = showTabBar ? 1 : 0
       }
     }
   }
@@ -99,9 +99,9 @@ struct FloatingTabsPanel: View {
           }
         }
       }
-      .onChange(of: selectedIndex) { index in
+      .onChange(of: selectedIndex) {
         withAnimation {
-          scrollView.scrollTo(index, anchor: .center)
+          scrollView.scrollTo(selectedIndex, anchor: .center)
         }
       }
       .padding(.vertical, 8)

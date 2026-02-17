@@ -37,8 +37,8 @@ public struct PercentField: View {
           // .focused($isFocused)
           .keyboardType(.decimalPad)
           .submitLabel(.done)
-          .onChange(of: internalValue) { newValue in
-            value = newValue ?? 0
+          .onChange(of: internalValue) {
+            value = internalValue ?? 0
           }
 
         Text("%").scaleEffect(1.8).padding(.leading)

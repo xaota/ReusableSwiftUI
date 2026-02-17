@@ -396,6 +396,12 @@
     "country": "DE"
   },
   {
+    "caption": "Kredo",
+    "code": "kredobankaz",
+    "search": ["кредо"],
+    "country": "AZ"
+  },
+  {
     "caption": "La Banque Postale",
     "code": "labanquepostalefr",
     "search": ["лабанкпосталь", "labanquepostalebank"],

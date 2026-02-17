@@ -40,7 +40,7 @@ public final class BankStore: @unchecked Sendable {
 //      print("filter x", code, caption, index, $0.code, searchable($0.caption), ($0.search ?? []).map { searchable($0) }.joined())
 
       return code || caption || index
-    } ?? []
+    }
   }
 
   public static func name(_ bank: String) -> String {

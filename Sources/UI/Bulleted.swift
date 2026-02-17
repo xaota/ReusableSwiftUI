@@ -95,14 +95,14 @@ public struct Bulleted<
     let highlight: String
   }
 
-  var features: [Feature] = [
+  let features: [Feature] = [
     Feature(title: "Добавляйте ", highlight: "вклады"),
     Feature(title: "Указывайте ", highlight: "цели"),
   ]
 
   return Bulleted(data: features) { f in
     let markdown = f.title + "**" + f.highlight + "**"
-    if var attributed = try? AttributedString(markdown: markdown) {
+    if let attributed = try? AttributedString(markdown: markdown) {
       Text(attributed)
     } else {
       Text("\(f.title)\(f.highlight)")

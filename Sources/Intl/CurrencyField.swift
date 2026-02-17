@@ -58,8 +58,8 @@ public struct CurrencyField: View {
         Label(selectCurrencyString, systemImage: "chevron.down").labelStyle(.iconOnly)
       }
     }
-    .onChange(of: selectedCurrencyList) { newValue in
-      switch newValue {
+    .onChange(of: selectedCurrencyList) {
+      switch selectedCurrencyList {
         case .popular:
           self.list = CurrencyField.popular
         case .other:
