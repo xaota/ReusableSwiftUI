@@ -6,9 +6,10 @@ extension View {
     by: Binding<Bool>,
     icon: String = "",
     confirm: String = "",
-    action: (() -> Void)? = nil,
+    action: @escaping (() -> Void) = {},
     interactiveDismiss: Bool = true,
     height: Binding<PresentationDetent> = .constant(.large),
+    onDismiss: @escaping (() -> Void) = {},
     @ViewBuilder content: @escaping () -> InnerContent
   ) -> some View {
     modifier(SheetController(
@@ -19,6 +20,7 @@ extension View {
       action: action,
       interactiveDismiss: interactiveDismiss,
       height: height,
+      onDismiss: onDismiss,
       innerContent: content
     ))
   }
@@ -31,8 +33,9 @@ struct SheetController<InnerContent: View>: ViewModifier {
   let title: String
   let icon: String
   let confirm: String
-  let action: (() -> Void)?
+  let action: (() -> Void)
   let interactiveDismiss: Bool
+  let onDismiss: (() -> Void)
   var innerContent: () -> InnerContent
 
   @State private var contentHeight: CGFloat = .zero
@@ -42,9 +45,10 @@ struct SheetController<InnerContent: View>: ViewModifier {
     title: String = "",
     icon: String = "",
     confirm: String = String(localized: "action:done", bundle: .module),
-    action: (() -> Void)? = nil,
+    action: @escaping (() -> Void) = {},
     interactiveDismiss: Bool = true,
     height: Binding<PresentationDetent>,
+    onDismiss: @escaping (() -> Void) = {},
     @ViewBuilder innerContent: @escaping () -> InnerContent
   ) {
     self._by = by
@@ -54,6 +58,7 @@ struct SheetController<InnerContent: View>: ViewModifier {
     self.action = action
     self.interactiveDismiss = interactiveDismiss
     self._height = height
+    self.onDismiss = onDismiss
     self.innerContent = innerContent
   }
 
@@ -61,7 +66,7 @@ struct SheetController<InnerContent: View>: ViewModifier {
     let caption = NSLocalizedString(title, comment: "")
 
     return content
-      .sheet(isPresented: $by) {
+      .sheet(isPresented: $by, onDismiss: onDismiss) {
         SheetWrapper(
           caption: caption,
           icon: icon,
@@ -157,7 +162,8 @@ struct SheetWrapper<Content: View>: View {
       "test sheet",
       by: $showingSheet,
       icon: "ellipsis.circle",
-      height: .constant(.adaptive)
+      height: .constant(.adaptive),
+      onDismiss: { print("dismiss") }
       // interactiveDismiss: false
     ) {
       let title = String(localized: "app:hello-world", bundle: .module)
