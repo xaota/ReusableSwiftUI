@@ -6,7 +6,7 @@ extension View {
     by: Binding<Bool>,
     icon: String = "",
     confirm: String = "",
-    action: @escaping (() -> Void) = {},
+    action: (() -> Void)? = nil,
     interactiveDismiss: Bool = true,
     height: Binding<PresentationDetent> = .constant(.large),
     onDismiss: @escaping (() -> Void) = {},
@@ -33,7 +33,7 @@ struct SheetController<InnerContent: View>: ViewModifier {
   let title: String
   let icon: String
   let confirm: String
-  let action: (() -> Void)
+  let action: (() -> Void)?
   let interactiveDismiss: Bool
   let onDismiss: (() -> Void)
   var innerContent: () -> InnerContent
@@ -45,7 +45,7 @@ struct SheetController<InnerContent: View>: ViewModifier {
     title: String = "",
     icon: String = "",
     confirm: String = String(localized: "action:done", bundle: .module),
-    action: @escaping (() -> Void) = {},
+    action: (() -> Void)? = nil,
     interactiveDismiss: Bool = true,
     height: Binding<PresentationDetent>,
     onDismiss: @escaping (() -> Void) = {},
