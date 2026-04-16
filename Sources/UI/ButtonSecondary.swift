@@ -11,11 +11,12 @@ import SwiftUI
 public struct ButtonSecondary: View {
   var text: String
   var icon: String
-  var action: () -> Void = {}
   var reverse: Bool = false
+  var action: () -> Void = {}
+  
 //  var style: ButtonStyle = .borderedProminent
 
-  public init(_ text: String, icon: String, action: @escaping () -> Void = {}, reverse: Bool = false) {
+  public init(_ text: String, icon: String, reverse: Bool = false, action: @escaping () -> Void = {}) {
     self.text = text
     self.icon = icon
     self.action = action

@@ -2,28 +2,28 @@ import Foundation
 import SwiftUI
 
 extension Color {
-    //  func toString() -> String {
-    //    let uic = UIColor(self)
-    //    guard let components = uic.cgColor.components, components.count >= 3 else {
-    //      return "000000"
-    //    }
-    //    let r = Float(components[0])
-    //    let g = Float(components[1])
-    //    let b = Float(components[2])
-    //    var a = Float(1.0)
-    //
-    //    if components.count >= 4 {
-    //        a = Float(components[3])
-    //    }
-    //
-    //    if a != Float(1.0) {
-    //        return String(format: "%02lX%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255), lroundf(a * 255))
-    //    } else {
-    //        return String(format: "%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255))
-    //    }
-    //  }
+  public func toString() -> String {
+    let uic = UIColor(self)
+    guard let components = uic.cgColor.components, components.count >= 3 else {
+      return "000000"
+    }
+    let r = Float(components[0])
+    let g = Float(components[1])
+    let b = Float(components[2])
+    var a = Float(1.0)
 
-  static func fromString(_ hex: String) -> Color {
+    if components.count >= 4 {
+        a = Float(components[3])
+    }
+
+    if a != Float(1.0) {
+        return String(format: "%02lX%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255), lroundf(a * 255))
+    } else {
+        return String(format: "%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255))
+    }
+  }
+
+  public static func fromString(_ hex: String) -> Color {
     var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
     hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
 
