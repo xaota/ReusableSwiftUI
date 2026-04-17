@@ -40,7 +40,6 @@ public extension View {
       Text("2")
       Text("3")
     }
-    // .searchable(if: true, text: $queryString, prompt: "Search")
     .searchable(
       if: true,
       text: $queryString,

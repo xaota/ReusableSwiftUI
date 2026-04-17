@@ -16,7 +16,12 @@ public struct ButtonSecondary: View {
   
 //  var style: ButtonStyle = .borderedProminent
 
-  public init(_ text: String, icon: String, reverse: Bool = false, action: @escaping () -> Void = {}) {
+  public init(
+    _ text: String,
+    icon: String,
+    reverse: Bool = false,
+    action: @escaping () -> Void = {}
+  ) {
     self.text = text
     self.icon = icon
     self.action = action

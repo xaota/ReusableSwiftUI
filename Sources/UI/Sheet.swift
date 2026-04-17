@@ -8,7 +8,7 @@ extension View {
     confirm: String = "",
     action: (() -> Void)? = nil,
     interactiveDismiss: Bool = true,
-    height: Binding<PresentationDetent> = .constant(.large),
+    height: Binding<PresentationDetent> = .constant(.adaptive),
     onDismiss: @escaping (() -> Void) = {},
     @ViewBuilder content: @escaping () -> InnerContent
   ) -> some View {
