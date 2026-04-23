@@ -33,6 +33,14 @@ let package = Package(
       name: "Bank",
       targets: ["Bank"]
     ),
+    .library(
+      name: "LLM",
+      targets: ["LLM"]
+    ),
+    .library(
+      name: "Weather",
+      targets: ["Weather"]
+    ),
   ],
 
   // Declare external package dependencies here
@@ -78,6 +86,20 @@ let package = Package(
       resources: [
         .copy("svg"),
         .process("bank.json")
+      ]
+    ),
+    .target(
+      name: "LLM",
+      dependencies: [],
+      resources: [
+        // .process("Localizable.xcstrings")
+      ]
+    ),
+    .target(
+      name: "Weather",
+      dependencies: [],
+      resources: [
+        // .process("Localizable.xcstrings")
       ]
     ),
   ],
