@@ -1,5 +1,5 @@
 //
-//  functions.swift
+//  KeyboardDismissTool.swift
 //  Reusable
 //
 //  Created by Rinat Ibragimov on 23.10.2025.

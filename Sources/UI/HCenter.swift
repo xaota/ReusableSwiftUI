@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  HCenter.swift
 //  Reusable
 //
 //  Created by Rinat Ibragimov on 21.10.2025.

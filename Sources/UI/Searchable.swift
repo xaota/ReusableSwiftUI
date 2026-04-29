@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  Searchable.swift
 //  Reusable
 //
 //  Created by Rinat Ibragimov on 15.04.2026.

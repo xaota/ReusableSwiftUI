@@ -1,4 +1,4 @@
-//  SwiftUIView.swift
+//  Bulleted.swift
 //  Reusable
 //
 //  Created by Rinat Ibragimov on 04.01.2026.

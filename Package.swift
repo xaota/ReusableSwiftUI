@@ -14,6 +14,10 @@ let package = Package(
 
   products: [
     .library(
+      name: "JSON",
+      targets: ["JSON"]
+    ),
+    .library(
       name: "Channel",
       targets: ["Channel"]
     ),
@@ -51,12 +55,18 @@ let package = Package(
 
   targets: [
     .target(
+      name: "JSON",
+      dependencies: []
+    ),
+    .target(
       name: "Channel",
       dependencies: []
     ),
     .target(
       name: "Intl",
-      dependencies: [],
+      dependencies: [
+        "JSON"
+      ],
       resources: [
         .process("currency.json"),
         .process("Localizable.xcstrings")
@@ -81,7 +91,8 @@ let package = Package(
       dependencies: [
         // .product(name: "SVGView", package: "SVGView"),
         .product(name: "SwiftDraw", package: "SwiftDraw"),
-        "UI"
+        "UI",
+        "JSON"
       ],
       resources: [
         .copy("svg"),

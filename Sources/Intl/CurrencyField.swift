@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  CurrencyField.swift
 //  Reusable
 //
 //  Created by Rinat Ibragimov on 04.11.2025.

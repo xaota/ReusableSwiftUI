@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  NavigationSlideOverSplitView.swift
 //  Reusable
 //
 //  Created by Rinat Ibragimov on 09.11.2025.

@@ -1,6 +1,6 @@
   //
   //  IconSquare.swift
-  //  birthdays
+  //  Reusable
   //
   //  Created by Rinat Ibragimov on 17.03.2025.
   //

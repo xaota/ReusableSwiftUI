@@ -1,6 +1,6 @@
 //
 //  SectionVStack.swift
-//  birthdays
+//  Reusable
 //
 //  Created by Rinat Ibragimov on 25.03.2025.
 //

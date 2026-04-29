@@ -1,6 +1,6 @@
 //
 //  NotificationsController.swift
-//  depositario
+//  Reusable
 //
 //  Created by Rinat Ibragimov on 11.01.2026.
 //

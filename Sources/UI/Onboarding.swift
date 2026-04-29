@@ -1,6 +1,6 @@
 //
 //  Onboarding.swift
-//  depositario
+//  Reusable
 //
 //  Created by Rinat Ibragimov on 30.11.2025.
 //

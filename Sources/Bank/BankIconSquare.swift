@@ -1,5 +1,5 @@
   //
-  //  SwiftUIView.swift
+  //  BankIconSquare.swift
   //  Reusable -> Bank
   //
   //  Created by Rinat Ibragimov on 23.10.2025.

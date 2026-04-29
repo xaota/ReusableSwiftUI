@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  CurrencyMenuItem.swift
 //  Reusable
 //
 //  Created by Rinat Ibragimov on 05.11.2025.

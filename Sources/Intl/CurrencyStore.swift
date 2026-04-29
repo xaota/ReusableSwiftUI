@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import JSON
 
 public final class CurrencyStore: @unchecked Sendable {
   public static let json: CurrencyStore = {
@@ -71,19 +72,21 @@ public final class CurrencyStore: @unchecked Sendable {
 }
 
 func decodeCurrencyJSON(file: String = "currency", fileExtension: String = "json") -> [CurrencyJSON] {
-  guard let url = Bundle.module.url(forResource: file, withExtension: fileExtension) else {
-    fatalError("Faliled to locate \(file) in bundle")
-  }
-
-  guard let data = try? Data(contentsOf: url) else {
-    fatalError("Failed to load file from \(file) from bundle")
-  }
-
-  let decoder = JSONDecoder()
-
-  guard let loadedFile = try? decoder.decode([CurrencyJSON].self, from: data) else {
-    fatalError("Failed to decode \(file) from bundle")
-  }
-
-  return loadedFile
+  let defaultValue: [CurrencyJSON] = []
+  return decodeFileJSON(file, defaultValue: defaultValue, bundle: .module, fileExtension: fileExtension)
+//  guard let url = Bundle.module.url(forResource: file, withExtension: fileExtension) else {
+//    fatalError("Faliled to locate \(file) in bundle")
+//  }
+//
+//  guard let data = try? Data(contentsOf: url) else {
+//    fatalError("Failed to load file from \(file) from bundle")
+//  }
+//
+//  let decoder = JSONDecoder()
+//
+//  guard let loadedFile = try? decoder.decode([CurrencyJSON].self, from: data) else {
+//    fatalError("Failed to decode \(file) from bundle")
+//  }
+//
+//  return loadedFile
 }

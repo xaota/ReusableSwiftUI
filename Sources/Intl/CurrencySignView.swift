@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  CurrencySignView.swift
 //  Reusable
 //
 //  Created by Rinat Ibragimov on 30.10.2025.

@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  Wizzard.swift
 //  Reusable
 //
 //  Created by Rinat Ibragimov on 22.11.2025.

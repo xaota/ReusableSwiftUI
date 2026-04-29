@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  NotifyPermitRequest.swift
 //  Reusable
 //
 //  Created by Rinat Ibragimov on 15.01.2026.
