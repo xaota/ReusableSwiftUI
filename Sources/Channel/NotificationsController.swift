@@ -78,15 +78,24 @@ public actor NotificationsController {
   }
 
   public static func available() async -> Bool {
+    #if os(iOS) || os(watchOS) || os(tvOS)
     let statuses: [UNAuthorizationStatus] = [
       .authorized,
       .provisional,
       .ephemeral,
       .notDetermined
     ]
+    #else
+    let statuses: [UNAuthorizationStatus] = [
+      .authorized,
+      .provisional,
+      .notDetermined
+    ]
+    #endif
 
     let center = UNUserNotificationCenter.current()
     let settings = await center.notificationSettings()
     return statuses.contains(settings.authorizationStatus)
   }
 }
+

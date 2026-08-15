@@ -5,6 +5,9 @@
 //  Created by Rinat Ibragimov on 23.10.2025.
 //
 import SwiftUI
+#if os(iOS)
+import UIKit
+#endif
 
 public struct KeyboardDismissTool: ToolbarContent {
   let caption = String(localized: "keyboard:dismiss", bundle: .module)
@@ -23,10 +26,12 @@ public struct KeyboardDismissTool: ToolbarContent {
 }
 
 public func keyboardDismiss() {
+#if os(iOS)
   UIApplication.shared.sendAction(
     #selector(UIResponder.resignFirstResponder),
     to: nil,
     from: nil,
     for: nil
   )
+#endif
 }

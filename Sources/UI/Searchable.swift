@@ -34,6 +34,12 @@ public extension View {
 #Preview {
   @Previewable @State var queryString: String = ""
 
+#if os(iOS)
+  let placement: SearchFieldPlacement = .navigationBarDrawer(displayMode: .automatic)
+#else
+  let placement: SearchFieldPlacement = .automatic
+#endif
+
   NavigationStack {
     List {
       Text("1")
@@ -43,12 +49,11 @@ public extension View {
     .searchable(
       if: true,
       text: $queryString,
-      placement: .navigationBarDrawer(displayMode: .automatic),
+      placement: placement,
       prompt: "Поиск"
     ) {
-        // Button("Добавить новую") { showingAppendSheet.toggle() }
-      Button("complete 34") { queryString = "34" }
-      Text("test 12").searchCompletion("12")
+        Button("complete 34") { queryString = "34" }
+        Text("test 12").searchCompletion("12")
     }
   }
 }

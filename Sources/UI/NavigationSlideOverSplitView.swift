@@ -40,11 +40,19 @@ public struct NavigationSlideOverSplitView<Content: View, DetailsContent: View, 
           .listStyle(.sidebar)
           .toolbar(removing: .sidebarToggle)
           .toolbar {
+            #if os(iOS)
             ToolbarItem(placement: .bottomBar) {
               Button(action: { allowSlideOver = true }) {
                 Label("app:filters:show", systemImage: "magnifyingglass.circle.fill")
               }
             }
+            #else
+            ToolbarItem(placement: .automatic) {
+              Button(action: { allowSlideOver = true }) {
+                Label("app:filters:show", systemImage: "magnifyingglass.circle.fill")
+              }
+            }
+            #endif
           }
       } detail: {
         details()
@@ -70,11 +78,19 @@ public struct NavigationSlideOverSplitView<Content: View, DetailsContent: View, 
           // #endif
           .navigationBarBackButtonHidden(true)
           .toolbar {
+            #if os(iOS)
             ToolbarItem(placement: .bottomBar) {
               Button(action: { allowSlideOver = false }) {
                 Label("app:filters:hide", systemImage: "magnifyingglass.circle")
               }
             }
+            #else
+            ToolbarItem(placement: .automatic) {
+              Button(action: { allowSlideOver = false }) {
+                Label("app:filters:hide", systemImage: "magnifyingglass.circle")
+              }
+            }
+            #endif
 
             ToolbarItem(placement: .cancellationAction) {
               Button(action: {

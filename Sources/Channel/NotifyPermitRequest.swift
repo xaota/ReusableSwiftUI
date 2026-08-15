@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 public struct NotifyPermitRequest: View {
   @State var unknownNotifyPermit: Bool = false

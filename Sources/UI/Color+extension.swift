@@ -3,23 +3,23 @@ import SwiftUI
 
 extension Color {
   public func toString() -> String {
-    let uic = UIColor(self)
-    guard let components = uic.cgColor.components, components.count >= 3 else {
-      return "000000"
-    }
-    let r = Float(components[0])
-    let g = Float(components[1])
-    let b = Float(components[2])
-    var a = Float(1.0)
+    // Resolve color components in a neutral environment to avoid UIKit/AppKit dependencies
+    // We'll use a minimal environment via Transaction/EnvironmentValues default
+    var env = EnvironmentValues()
+    // Default color scheme light to keep stable hex for semantic colors
+    env.colorScheme = .light
 
-    if components.count >= 4 {
-        a = Float(components[3])
-    }
+    let resolved = self.resolve(in: env)
 
-    if a != Float(1.0) {
-        return String(format: "%02lX%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255), lroundf(a * 255))
+    let r = Float(resolved.red)
+    let g = Float(resolved.green)
+    let b = Float(resolved.blue)
+    let a = Float(resolved.opacity)
+
+    if a != 1.0 {
+      return String(format: "%02lX%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255), lroundf(a * 255))
     } else {
-        return String(format: "%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255))
+      return String(format: "%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255))
     }
   }
 
@@ -89,4 +89,3 @@ extension Color {
     return 0.2126 * adjust(colorComponent: CGFloat(components!.red)) + 0.7152 * adjust(colorComponent: CGFloat(components!.green)) + 0.0722 * adjust(colorComponent: CGFloat(components!.blue))
   }
 }
-

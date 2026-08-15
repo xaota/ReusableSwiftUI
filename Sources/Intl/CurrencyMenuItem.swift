@@ -5,7 +5,6 @@
 //  Created by Rinat Ibragimov on 05.11.2025.
 //
 
-import UIKit
 import SwiftUI
 
 struct CurrencyMenuItem: View {
@@ -40,7 +39,7 @@ struct CurrencyMenuItem: View {
       if flag.isEmpty {
         Image(systemName: icon)
       } else {
-        Image(uiImage: flag.image())
+        flag.image()
       }
     }
   }
@@ -51,14 +50,34 @@ struct CurrencyMenuItem: View {
 }
 
 extension String {
-  func image(pointSize: CGFloat = 24, backgroundColor: UIColor = .clear) -> UIImage {
-    let font = UIFont.systemFont(ofSize: pointSize)
-    let emojiSize = self.size(withAttributes: [.font: font])
+  func image(pointSize: CGFloat = 24, backgroundColor: Color = .clear) -> Image {
+    #if swift(>=5.9)
+    if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *) {
+      // Ensure all ImageRenderer interactions happen on the main actor
+      return MainActor.assumeIsolated {
+        let view = Text(self)
+          .font(.system(size: pointSize))
+          .padding(0)
+          .background(backgroundColor)
 
-    return UIGraphicsImageRenderer(size: emojiSize).image { context in
-      backgroundColor.setFill()
-      context.fill(CGRect(origin: .zero, size: emojiSize))
-      self.draw(at: .zero, withAttributes: [.font: font])
+        let renderer = ImageRenderer(content: view)
+        renderer.scale = 1
+
+        #if canImport(UIKit)
+        if let uiImage = renderer.uiImage {
+          return Image(uiImage: uiImage)
+        }
+        #elseif canImport(AppKit)
+        if let nsImage = renderer.nsImage {
+          return Image(nsImage: nsImage)
+        }
+        #endif
+
+        return Image(systemName: "rectangle")
+      }
     }
+    #endif
+
+    return Image(systemName: "rectangle")
   }
 }

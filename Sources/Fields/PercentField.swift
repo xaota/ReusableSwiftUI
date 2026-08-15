@@ -35,8 +35,10 @@ public struct PercentField: View {
         TextField(prompt, value: $internalValue, format: .number.scale(100).precision(.fractionLength(0...2)))
           .fieldPrimary(alignment: .trailing)
           // .focused($isFocused)
+#if os(iOS)
           .keyboardType(.decimalPad)
           .submitLabel(.done)
+#endif
           .onChange(of: internalValue) {
             value = internalValue ?? 0
           }

@@ -41,8 +41,11 @@ public struct AmountField: View {
         TextField(prompt, value: $internalValue, format: .currency(code: "").precision(.fractionLength(2)))
           .fieldPrimary(alignment: .trailing)
           // .focused($isFocused)
+#if os(iOS)
           .keyboardType(.decimalPad)
           .submitLabel(.done)
+#endif
+//          .keyboardType(.decimalPad)
           .onChange(of: internalValue) {
             value = internalValue ?? 0
           }

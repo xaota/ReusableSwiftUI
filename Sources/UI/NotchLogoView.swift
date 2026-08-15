@@ -1,4 +1,7 @@
 import SwiftUI
+#if os(iOS)
+import UIKit
+#endif
 
 extension View {
   public func notch (_ title: String = "") -> some View {
@@ -26,40 +29,69 @@ struct NotchLogoView: ViewModifier {
     self.offset = offset
   }
 
+//  public func body (content: Content) -> some View {
+//    ZStack {
+//      content
+//
+//      if (hasZone) {
+//        GeometryReader { geo in
+////          let diSize = calculateDynamicIslandSize()
+//
+//          ZStack {
+//              // Create the border with the capsule shape
+//            Capsule()
+//              .fill(Color.accentColor)
+////              .stroke(Color.red, lineWidth: 2)
+//              .frame(width: zoneSize.width, height: zoneSize.height)
+//              .overlay(Text(self.title).foregroundColor(Color.white))
+//              .position(x: geo.size.width / 2, y: zoneBottom - zoneSize.height + offset)
+//              //              .offset(y: -100)
+//          }
+//          .edgesIgnoringSafeArea(.top)
+//        }
+//      }
+//    }
+//    .onAppear {
+//        // Get the safe area inset
+//      if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//         let safeAreaTop = windowScene.windows.first?.safeAreaInsets.top {
+////        self.safeAreaTop = safeAreaTop
+//
+//        let isDynamicIsland = safeAreaTop > 50 && UIDevice.current.userInterfaceIdiom == .phone
+//        let isNotch = safeAreaTop > 44
+//
+//        self.hasZone = isDynamicIsland || isNotch
+//        self.zoneSize = isDynamicIsland ? CGSize(width: 120, height: 32) : CGSize(width: 120, height: 28)
+//        self.zoneBottom = safeAreaTop
+//      }
+//    }
+//  }
   public func body (content: Content) -> some View {
     ZStack {
       content
 
-      if (hasZone) {
-        GeometryReader { geo in
-//          let diSize = calculateDynamicIslandSize()
+      GeometryReader { geo in
+          // Получаем верхнюю безопасную вставку из SwiftUI
+        let safeAreaTop = geo.safeAreaInsets.top
 
+          // Простая эвристика: если вставка значимая — считаем, что есть вырез/остров
+          // Порог можно подстроить при необходимости
+        let isDynamicIslandOrNotch: Bool = safeAreaTop > 44
+
+          // Локальные вычисления размеров и положения
+        let size: CGSize = safeAreaTop > 50 ? CGSize(width: 120, height: 32) : CGSize(width: 120, height: 28)
+        let bottom = safeAreaTop
+
+        if isDynamicIslandOrNotch {
           ZStack {
-              // Create the border with the capsule shape
             Capsule()
               .fill(Color.accentColor)
-//              .stroke(Color.red, lineWidth: 2)
-              .frame(width: zoneSize.width, height: zoneSize.height)
+              .frame(width: size.width, height: size.height)
               .overlay(Text(self.title).foregroundColor(Color.white))
-              .position(x: geo.size.width / 2, y: zoneBottom - zoneSize.height + offset)
-              //              .offset(y: -100)
+              .position(x: geo.size.width / 2, y: bottom - size.height + offset)
           }
           .edgesIgnoringSafeArea(.top)
         }
-      }
-    }
-    .onAppear {
-        // Get the safe area inset
-      if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-         let safeAreaTop = windowScene.windows.first?.safeAreaInsets.top {
-//        self.safeAreaTop = safeAreaTop
-
-        let isDynamicIsland = safeAreaTop > 50 && UIDevice.current.userInterfaceIdiom == .phone
-        let isNotch = safeAreaTop > 44
-
-        self.hasZone = isDynamicIsland || isNotch
-        self.zoneSize = isDynamicIsland ? CGSize(width: 120, height: 32) : CGSize(width: 120, height: 28)
-        self.zoneBottom = safeAreaTop
       }
     }
   }

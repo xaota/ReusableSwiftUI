@@ -70,8 +70,10 @@ private struct OnboardingController: ViewModifier {
             action()
           }
         }
+#if !os(macOS)
         .presentationDragIndicator(.visible)
         .presentationDetents([.fraction(0.92)])
+#endif
       }
       // .presentationSizing(.page.sticky(horizontal: false, vertical: true))
   }
@@ -91,11 +93,17 @@ public struct Onboarding: View {
       ForEach(Array(pages.enumerated()), id: \.offset) { index, tab in
         tab
           .content()
+#if !os(macOS)
           .toolbar(.hidden, for: .tabBar)
+#endif
           .tag(index)
       }
     }
+#if os(macOS)
+    .tabViewStyle(.automatic)
+#else
     .tabViewStyle(.page)
+#endif
     .safeAreaInset(edge: .bottom) {
       if !pages.isEmpty {
         let prompt = pages[selectedIndex].prompt
