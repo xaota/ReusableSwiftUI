@@ -15,15 +15,8 @@ public struct CurrencySignView: View {
   }
 
   public var body: some View {
-    if json == nil {
-      EmptyView()
-    } else {
-      if let sign = json!.sign {
-        Text(sign)
-      } else {
-        let firstCodeChar = String(json!.code.prefix(1))
-        Text(firstCodeChar.isEmpty ? "?" : firstCodeChar)
-      }
+    if let json {
+      Text(json.sign ?? json.code.first.map(String.init) ?? "?")
     }
   }
 }

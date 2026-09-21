@@ -32,31 +32,24 @@ public struct BankIconSquare: View {
     }
   }
 
+  /// Первые буквы первых двух слов названия — для банков без иконки
   static func letter(_ value: String) -> String {
     return value
-      .trimmingCharacters(in: .whitespacesAndNewlines)
       .replacingOccurrences(
-        of: "[\\s\\-\\|\\.\\,–—/\\\\&\\$\\(\\)\\[\\]\\{\\}]+",
+        of: BankStore.separatorsPattern,
         with: " ",
         options: .regularExpression
       )
       .split(separator: " ")
       .prefix(2)
-      .map { String($0.first ?? Character("")) }
+      .compactMap { $0.first.map(String.init) }
       .joined()
       .uppercased()
   }
 
   static func color(_ value: String) -> Color {
-    let id = BankIconSquare.strHash(value)
-    let count = colors.count
-
-    if id >= 0 && id < count {
-      return Color(hex: BankIconSquare.colors[id])
-    }
-
-    let colorIndex = abs(id % count)
-    return Color(hex: BankIconSquare.colors[colorIndex])
+    let index = abs(strHash(value) % colors.count)
+    return Color(hex: colors[index])
   }
 
   private static let colors: [Int] = [
@@ -92,17 +85,5 @@ public struct BankIconSquare: View {
         .padding()
       }
     }
-  }
-}
-
-extension Color {
-  init(hex: Int, opacity: Double = 1) {
-    self.init(
-      .sRGB,
-      red: Double((hex >> 16) & 0xff) / 255,
-      green: Double((hex >> 08) & 0xff) / 255,
-      blue: Double((hex >> 00) & 0xff) / 255,
-      opacity: opacity
-    )
   }
 }

@@ -113,6 +113,23 @@ let package = Package(
         // .process("Localizable.xcstrings")
       ]
     ),
+    .testTarget(
+      name: "ReusableTests",
+      dependencies: [
+        "JSON",
+        "Channel",
+        "Intl",
+        "UI",
+        "Bank",
+        "LLM",
+        "Weather"
+      ],
+      resources: [
+        .process("fixture-people.json"),
+        .process("fixture-missing-key.json"),
+        .process("fixture-type-mismatch.json")
+      ]
+    ),
   ],
 
   swiftLanguageModes: [.v6]

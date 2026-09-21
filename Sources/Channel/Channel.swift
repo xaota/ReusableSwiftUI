@@ -1,5 +1,5 @@
 //
-//  Cahnnel.swift
+//  Channel.swift
 //  Reusable
 //
 //  Created by Rinat Ibragimov on 14.10.2025.

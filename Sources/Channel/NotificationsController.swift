@@ -9,7 +9,7 @@ import Foundation
 import UserNotifications
 
 public actor NotificationsController {
-  public static func scedule(_ request: UNNotificationRequest) async -> Void {
+  public static func schedule(_ request: UNNotificationRequest) async -> Void {
     guard await requirePermission() else { return }
 
     do {
@@ -20,7 +20,9 @@ public actor NotificationsController {
     }
   }
 
-  public static func scedule(_ requests: [UNNotificationRequest]) async {
+  public static func schedule(_ requests: [UNNotificationRequest]) async {
+    guard await requirePermission() else { return }
+
     let center = UNUserNotificationCenter.current()
 
     for request in requests {

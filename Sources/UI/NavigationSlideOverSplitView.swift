@@ -17,6 +17,15 @@ public struct NavigationSlideOverSplitView<Content: View, DetailsContent: View, 
   @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn // .all
   @State private var preferredColumn: NavigationSplitViewColumn = .content
 
+  // На iOS кнопка переключения фильтров живёт в нижней панели, на других платформах — в тулбаре
+  private var togglePlacement: ToolbarItemPlacement {
+    #if os(iOS)
+    .bottomBar
+    #else
+    .automatic
+    #endif
+  }
+
   // Public initializer so this can be constructed from other modules
   public init(
     allowSlideOver: Binding<Bool>,
@@ -40,19 +49,11 @@ public struct NavigationSlideOverSplitView<Content: View, DetailsContent: View, 
           .listStyle(.sidebar)
           .toolbar(removing: .sidebarToggle)
           .toolbar {
-            #if os(iOS)
-            ToolbarItem(placement: .bottomBar) {
+            ToolbarItem(placement: togglePlacement) {
               Button(action: { allowSlideOver = true }) {
                 Label("app:filters:show", systemImage: "magnifyingglass.circle.fill")
               }
             }
-            #else
-            ToolbarItem(placement: .automatic) {
-              Button(action: { allowSlideOver = true }) {
-                Label("app:filters:show", systemImage: "magnifyingglass.circle.fill")
-              }
-            }
-            #endif
           }
       } detail: {
         details()
@@ -78,19 +79,11 @@ public struct NavigationSlideOverSplitView<Content: View, DetailsContent: View, 
           // #endif
           .navigationBarBackButtonHidden(true)
           .toolbar {
-            #if os(iOS)
-            ToolbarItem(placement: .bottomBar) {
+            ToolbarItem(placement: togglePlacement) {
               Button(action: { allowSlideOver = false }) {
                 Label("app:filters:hide", systemImage: "magnifyingglass.circle")
               }
             }
-            #else
-            ToolbarItem(placement: .automatic) {
-              Button(action: { allowSlideOver = false }) {
-                Label("app:filters:hide", systemImage: "magnifyingglass.circle")
-              }
-            }
-            #endif
 
             ToolbarItem(placement: .cancellationAction) {
               Button(action: {

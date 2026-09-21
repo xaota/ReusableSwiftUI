@@ -27,22 +27,34 @@ public struct ButtonPrimary: View {
 
   public var body: some View {
     Button(action: action) {
-      if !reverse {
-        Label(text, systemImage: icon)
-          .labelStyle(.titleAndIcon)
-          .frame(maxWidth: .infinity)
-      } else {
-        HStack {
-          Text(text)
-          Label(text, systemImage: icon).labelStyle(.iconOnly)
-        }
-        .frame(maxWidth: .infinity)
-      }
+      ButtonLabel(text: text, icon: icon, reverse: reverse)
     }
     .buttonStyle(.borderedProminent)
     .controlSize(.large)
     .glassEffect()
     .padding(.horizontal)
+  }
+}
+
+/// Общий лейбл для ButtonPrimary / ButtonSecondary:
+/// иконка перед текстом или после него (reverse)
+struct ButtonLabel: View {
+  let text: String
+  let icon: String
+  let reverse: Bool
+
+  var body: some View {
+    if !reverse {
+      Label(text, systemImage: icon)
+        .labelStyle(.titleAndIcon)
+        .frame(maxWidth: .infinity)
+    } else {
+      HStack {
+        Text(text)
+        Label(text, systemImage: icon).labelStyle(.iconOnly)
+      }
+      .frame(maxWidth: .infinity)
+    }
   }
 }
 

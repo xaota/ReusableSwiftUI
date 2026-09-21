@@ -15,17 +15,12 @@ public func decodeFileJSON<T: Decodable>(
   fileExtension: String = "json",
 ) -> T {
   guard let url = bundle.url(forResource: file, withExtension: fileExtension) else {
-    fatalError("Faliled to locate \(file) in bundle \(bundle.bundlePath)")
+    fatalError("Failed to locate \(file) in bundle \(bundle.bundlePath)")
   }
 
   guard let data = try? Data(contentsOf: url) else {
     fatalError("Failed to load file from \(file) from bundle")
   }
-
-  //  print("\(data) Loaded \(file) from bundle")
-  //  if let str = String(data: data, encoding: .utf8) {
-  //    print("Successfully decoded: \(str)")
-  //  }
 
   let decoder = JSONDecoder()
   do {

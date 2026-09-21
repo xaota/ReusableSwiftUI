@@ -2,6 +2,17 @@ import Foundation
 import SwiftUI
 
 extension Color {
+  /// Цвет из целочисленного hex-значения, например 0xEB4F60
+  public init(hex: Int, opacity: Double = 1) {
+    self.init(
+      .sRGB,
+      red: Double((hex >> 16) & 0xff) / 255,
+      green: Double((hex >> 08) & 0xff) / 255,
+      blue: Double((hex >> 00) & 0xff) / 255,
+      opacity: opacity
+    )
+  }
+
   public func toString() -> String {
     // Resolve color components in a neutral environment to avoid UIKit/AppKit dependencies
     // We'll use a minimal environment via Transaction/EnvironmentValues default

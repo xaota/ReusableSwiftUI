@@ -16,14 +16,16 @@ public struct CurrencyField: View {
   }
 
   @State private var selectedCurrencyList: CurrencyListENUM = .popular
-  @State private var list: [CurrencyEnum] = CurrencyField.popular
+
+  private var list: [CurrencyEnum] {
+    selectedCurrencyList == .popular ? CurrencyField.popular : CurrencyField.other
+  }
 
   public init(value: Binding<CurrencyEnum>) {
     self._value = value
   }
 
   public var body: some View {
-    let selectCurrencyString = String(localized: "popular", bundle: .module)
     let popularCurrenciesString = String(localized: "popular", bundle: .module)
     let otherCurrenciesString = String(localized: "other", bundle: .module)
 
@@ -51,19 +53,10 @@ public struct CurrencyField: View {
         }
       }
 
-      // CurrencyMenuItem(currency: .BTC) { currency = .BTC }
     } label: {
       HStack {
         CurrencySignView(currency: value)
-        Label(selectCurrencyString, systemImage: "chevron.down").labelStyle(.iconOnly)
-      }
-    }
-    .onChange(of: selectedCurrencyList) {
-      switch selectedCurrencyList {
-        case .popular:
-          self.list = CurrencyField.popular
-        case .other:
-          self.list = CurrencyField.other
+        Label(popularCurrenciesString, systemImage: "chevron.down").labelStyle(.iconOnly)
       }
     }
   }

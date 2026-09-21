@@ -109,7 +109,7 @@ public struct Onboarding: View {
         let prompt = pages[selectedIndex].prompt
 
         ButtonPrimary(prompt, icon: "chevron.right", reverse: true) {
-          if selectedIndex < max(0, pages.count - 1) {
+          if selectedIndex < pages.count - 1 {
             withAnimation {
               selectedIndex += 1
             }
@@ -118,7 +118,6 @@ public struct Onboarding: View {
             action()
           }
         }
-        .disabled(pages.isEmpty)
       }
     }
     .toolbar {

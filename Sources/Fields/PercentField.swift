@@ -45,17 +45,6 @@ public struct PercentField: View {
       }
     }
   }
-
-  private let quantityFormatter: NumberFormatter = {
-    let formatter = NumberFormatter()
-    formatter.locale = Locale.current
-    formatter.numberStyle = .percent
-    formatter.minimumFractionDigits = 0
-    formatter.maximumFractionDigits = 2
-    formatter.zeroSymbol = ""
-    formatter.percentSymbol = ""
-    return formatter
-  }()
 }
 
 #Preview {

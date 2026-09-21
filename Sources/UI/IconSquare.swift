@@ -56,33 +56,22 @@ public struct IconSquare: View {
     return background.contrastRatio(against: .white, environment: environment) > 2 ? .white : .black
   }
 
-  @ViewBuilder func backgroundWithColor(color: Color) -> some View {
-    if color == .clear {
-      background(.ultraThinMaterial)
+  @ViewBuilder private var label: some View {
+    if let icon {
+      Image(systemName: icon)
     } else {
-      background(color)
+      Text(text ?? "").font(.title3).fixedSize()
     }
   }
 
   public var body: some View {
-    if self.icon != nil {
-      Image(systemName: icon!)
-        .frame(width: self.size, height: self.size)
-        .scaleEffect(self.scale)
-        .padding()
-        .foregroundColor(color)
-        .backgroundWithColor(color: selected ? (background == .clear ? accent : background) : .clear)
-        .clipShape(Circle())
-    } else {
-      Text(text!).font(.title3)
-        .fixedSize()
-        .frame(width: self.size, height: self.size)
-        .scaleEffect(self.scale)
-        .padding()
-        .foregroundColor(color)
-        .backgroundWithColor(color: selected ? (background == .clear ? accent : background) : .clear)
-        .clipShape(Circle())
-    }
+    label
+      .frame(width: size, height: size)
+      .scaleEffect(scale)
+      .padding()
+      .foregroundColor(color)
+      .backgroundWithColor(color: selected ? (background == .clear ? accent : background) : .clear)
+      .clipShape(Circle())
   }
 }
 

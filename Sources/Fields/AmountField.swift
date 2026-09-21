@@ -16,8 +16,6 @@ public struct AmountField: View {
 
   @State private var internalValue: Decimal?
 
-//  @FocusState private var isFocused: Bool
-
   public init(
     _ prompt: String,
     value: Binding<Decimal>,
@@ -32,18 +30,14 @@ public struct AmountField: View {
   }
 
   public var body: some View {
-//    let sign: String = CurrencyStore.json.by(currency)?.sign ?? ""
-
     HCenter {
       HStack(alignment: .center) {
         TextField(prompt, value: $internalValue, format: .currency(code: "").precision(.fractionLength(2)))
           .fieldPrimary(alignment: .trailing)
-          // .focused($isFocused)
 #if os(iOS)
           .keyboardType(.decimalPad)
           .submitLabel(.done)
 #endif
-//          .keyboardType(.decimalPad)
           .onChange(of: internalValue) {
             value = internalValue ?? 0
           }

@@ -15,8 +15,7 @@ public struct Bulleted<
   private let spacing: CGFloat
   private let bulletWidth: CGFloat
   private let content: (Data.Element) -> Row
-  private let bullet: () -> Bullet
-  private let bulletWithElement: ((Data.Element) -> Bullet)?
+  private let bullet: (Data.Element) -> Bullet
 
   public init(
     data: Data,
@@ -29,8 +28,7 @@ public struct Bulleted<
     self.spacing = spacing
     self.bulletWidth = bulletWidth
     self.content = content
-    self.bullet = bullet
-    self.bulletWithElement = nil
+    self.bullet = { _ in bullet() }
   }
 
   public init(
@@ -44,8 +42,7 @@ public struct Bulleted<
     self.spacing = spacing
     self.bulletWidth = bulletWidth
     self.content = content
-    self.bullet = { fatalError("Bullet without element not provided") }
-    self.bulletWithElement = bullet
+    self.bullet = bullet
   }
 
   public init(
@@ -73,13 +70,8 @@ public struct Bulleted<
     VStack(alignment: .leading, spacing: spacing) {
       ForEach(Array(data.enumerated()), id: \.0) { _, element in
         HStack(alignment: .firstTextBaseline, spacing: spacing) {
-          if let bulletWithElement {
-            bulletWithElement(element)
-              .frame(width: bulletWidth, alignment: .leading)
-          } else {
-            bullet()
-              .frame(width: bulletWidth, alignment: .leading)
-          }
+          bullet(element)
+            .frame(width: bulletWidth, alignment: .leading)
 
           content(element)
             .frame(maxWidth: .infinity, alignment: .leading)

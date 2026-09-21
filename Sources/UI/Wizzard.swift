@@ -15,14 +15,14 @@ public struct WizzardPage {
   public var after: () -> Void
 
   public init<V: View>(
-    forward: String = String(localized: "app:action:next"),
-    backward: String = String(localized: "app:action:back"),
+    forward: String = "",
+    backward: String = "",
     @ViewBuilder content: @escaping () -> V,
     complete: @escaping () -> Bool = { true },
     after: @escaping () -> Void = {},
   ) {
-    self.forward = forward
-    self.backward = backward
+    self.forward = forward.isEmpty ? String(localized: "app:action:next", bundle: .module) : forward
+    self.backward = backward.isEmpty ? String(localized: "app:action:back", bundle: .module) : backward
     self.content = { AnyView(content()) }
     self.complete = complete
     self.after = after
@@ -48,17 +48,6 @@ public struct Wizzard: View {
     self._selectedIndex = State(initialValue: selectedIndex)
     self.finish = finish
     self.cancel = cancel
-  }
-
-  public init(
-    pages: [WizzardPage],
-    selectedIndex: Int = 0,
-    finish: @escaping () -> Void
-  ) {
-    self.pages = pages
-    self._selectedIndex = State(initialValue: selectedIndex)
-    self.finish = finish
-    self.cancel = {}
   }
 
   public var body: some View {

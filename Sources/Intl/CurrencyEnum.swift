@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum CurrencyEnum: String, Codable, Hashable, CaseIterable {
+public enum CurrencyEnum: String, Codable, Hashable, CaseIterable, Sendable {
   // основные
   case USD
   case EUR

@@ -12,8 +12,6 @@ public struct ButtonSecondary: View {
   var icon: String
   var reverse: Bool = false
   var action: () -> Void = {}
-  
-//  var style: ButtonStyle = .borderedProminent
 
   public init(
     _ text: String,
@@ -29,28 +27,11 @@ public struct ButtonSecondary: View {
 
   public var body: some View {
     Button(action: action) {
-      if !reverse {
-        Label(text, systemImage: icon)
-          .labelStyle(.titleAndIcon)
-          .foregroundStyle(.link)
-          .frame(maxWidth: .infinity)
-      } else {
-        HStack {
-          Text(text)
-            .foregroundStyle(.link)
-
-          Label(text, systemImage: icon)
-            .labelStyle(.iconOnly)
-            .foregroundStyle(.link)
-        }
-        .frame(maxWidth: .infinity)
-      }
+      ButtonLabel(text: text, icon: icon, reverse: reverse)
+        .foregroundStyle(.link)
     }
     .controlSize(.large)
-//    .buttonStyle(.bordered)
     .buttonStyle(.glass)
-//    .glassEffect()
-//    .padding(.horizontal)
   }
 }
 

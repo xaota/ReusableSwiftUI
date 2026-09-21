@@ -29,16 +29,7 @@ public struct BankIcon: View {
   }
 
   public static func path(_ bank: String) -> String {
-    let code = bank
-      .trimmingCharacters(in: .whitespacesAndNewlines)
-      .replacingOccurrences(
-        of: "[\\s+\\-\\|\\.\\,–—/\\\\&\\$\\(\\)\\[\\]\\{\\}]+",
-        with: "",
-        options: .regularExpression
-      )
-      .lowercased()
-
-    return "svg/" + code + ".svg"
+    "svg/" + BankStore.searchable(bank) + ".svg"
   }
 
   public static func has(_ bank: String) -> Bool {

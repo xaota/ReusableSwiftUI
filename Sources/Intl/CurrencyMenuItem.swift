@@ -17,20 +17,14 @@ struct CurrencyMenuItem: View {
     self.action = action
     let json: CurrencyJSON? = CurrencyStore.json.by(currency)
 
-    let flag: String = json?.flag != nil ? json!.flag! : ""
-    let icon: String = json?.icon != nil ? json!.icon! + "sign" : ""
-    // let sign: String = json?.sign != nil ? json!.sign! : ""
+    self.flag = json?.flag ?? ""
+    self.icon = json?.icon.map { $0 + "sign" } ?? ""
 
-    if !flag.isEmpty {
-//      self.image = Image(uiImage: flag.image(pointSize: 20))
-      self.label = String(describing: currency) + (json?.sign != nil ? ", \(json!.sign!)" : "")
+    if let sign = json?.sign, !flag.isEmpty {
+      self.label = "\(currency.rawValue), \(sign)"
     } else {
-//      self.image = Image(systemName: icon)
-      self.label = String(describing: currency)
+      self.label = currency.rawValue
     }
-
-    self.flag = flag
-    self.icon = icon
   }
 
   var body: some View {
