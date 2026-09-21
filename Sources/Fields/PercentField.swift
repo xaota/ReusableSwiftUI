@@ -15,7 +15,7 @@ public struct PercentField: View {
 
 //  @FocusState private var isFocused: Bool
 
-  @State private var internalValue: Decimal? = nil
+  @State private var internalValue: Decimal?
 
   public init(
     _ prompt: String,
@@ -24,9 +24,7 @@ public struct PercentField: View {
     self.prompt = prompt // NSLocalizedString(prompt, comment: "")
     self._value = value
     let initial = value.wrappedValue
-    if initial != 0 {
-      self._internalValue = State(initialValue: initial)
-    }
+    self._internalValue = State(initialValue: initial != 0 ? initial : nil)
   }
 
   public var body: some View {

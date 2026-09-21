@@ -26,6 +26,98 @@ extension View {
   }
 }
 
+extension View {
+  /// Вариант sheetController, управляемый optional-значением (в духе новых
+  /// alert(item:)/confirmationDialog(item:) из SDK 27): шторка показана, пока
+  /// значение не nil, и получает его в content.
+  public func sheetController<Item: Identifiable, InnerContent: View> (
+    _ title: String = "",
+    item: Binding<Item?>,
+    icon: String = "",
+    confirm: String = "",
+    action: (() -> Void)? = nil,
+    interactiveDismiss: Bool = true,
+    height: Binding<PresentationDetent> = .constant(.adaptive),
+    onDismiss: @escaping (() -> Void) = {},
+    @ViewBuilder content: @escaping (Item) -> InnerContent
+  ) -> some View {
+    modifier(SheetItemController(
+      item: item,
+      title: title,
+      icon: icon,
+      confirm: confirm.isEmpty ? String(localized: "action:done", bundle: .module) : confirm,
+      action: action,
+      interactiveDismiss: interactiveDismiss,
+      height: height,
+      onDismiss: onDismiss,
+      innerContent: content
+    ))
+  }
+}
+
+struct SheetItemController<Item: Identifiable, InnerContent: View>: ViewModifier {
+  @Binding var item: Item?
+  @Binding var height: PresentationDetent
+
+  let title: String
+  let icon: String
+  let confirm: String
+  let action: (() -> Void)?
+  let interactiveDismiss: Bool
+  let onDismiss: (() -> Void)
+  var innerContent: (Item) -> InnerContent
+
+  @State private var contentHeight: CGFloat = .zero
+
+  init(
+    item: Binding<Item?>,
+    title: String = "",
+    icon: String = "",
+    confirm: String = String(localized: "action:done", bundle: .module),
+    action: (() -> Void)? = nil,
+    interactiveDismiss: Bool = true,
+    height: Binding<PresentationDetent>,
+    onDismiss: @escaping (() -> Void) = {},
+    @ViewBuilder innerContent: @escaping (Item) -> InnerContent
+  ) {
+    self._item = item
+    self.title = title
+    self.icon = icon
+    self.confirm = confirm
+    self.action = action
+    self.interactiveDismiss = interactiveDismiss
+    self._height = height
+    self.onDismiss = onDismiss
+    self.innerContent = innerContent
+  }
+
+  public func body (content: Content) -> some View {
+    let caption = NSLocalizedString(title, comment: "")
+
+    return content
+      .sheet(item: $item, onDismiss: onDismiss) { value in
+        SheetWrapper(
+          caption: caption,
+          icon: icon,
+          confirm: confirm,
+          action: action,
+          interactiveDismiss: interactiveDismiss
+        ) {
+          innerContent(value)
+            .onGeometryChange(for: CGSize.self) { proxy in
+              proxy.size
+            } action: {
+              contentHeight = $0.height + 128
+            }
+        }
+        .presentationSizing(.form)
+        .presentationDragIndicator(interactiveDismiss ? .visible : .hidden)
+        .interactiveDismissDisabled(!interactiveDismiss)
+        .presentationDetents([height == .adaptive ? .height(contentHeight) : height])
+      }
+  }
+}
+
 struct SheetController<InnerContent: View>: ViewModifier {
   @Binding var by: Bool
   @Binding var height: PresentationDetent
@@ -115,9 +207,23 @@ struct SheetWrapper<Content: View>: View {
     self.content = content
   }
 
-  var body: some View {
+  @ToolbarContentBuilder
+  private var confirmItem: some ToolbarContent {
     let done = String(localized: "action:done", bundle: .module)
 
+    ToolbarItem(placement: .confirmationAction) {
+      if icon.isEmpty {
+        Button(done, action: action!)
+      } else {
+        // Button(action: action!) { Label(confirm, systemImage: icon) }
+        Button(role: .confirm, action: action!) {
+          Label(confirm, systemImage: icon) // .labelStyle(.iconOnly)
+        }
+      }
+    }
+  }
+
+  var body: some View {
     NavigationStack {
       content()
         .toolbar {
@@ -130,15 +236,11 @@ struct SheetWrapper<Content: View>: View {
           }
 
           if action != nil {
-            ToolbarItem(placement: .confirmationAction) {
-              if icon.isEmpty {
-                Button(done, action: action!)
-              } else {
-                // Button(action: action!) { Label(confirm, systemImage: icon) }
-                Button(role: .confirm, action: action!) {
-                  Label(confirm, systemImage: icon) // .labelStyle(.iconOnly)
-                }
-              }
+            if #available(iOS 27.0, macOS 26.1, *) {
+              // Кнопка подтверждения не должна уезжать в overflow-меню
+              confirmItem.visibilityPriority(.high)
+            } else {
+              confirmItem
             }
           }
         }

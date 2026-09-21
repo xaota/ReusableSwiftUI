@@ -33,7 +33,7 @@ public struct Wizzard: View {
   @Environment(\.dismiss) private var dismiss
 
   public var pages: [WizzardPage]
-  @State public var selectedIndex: Int = 0
+  @State public var selectedIndex: Int
 
   public var finish: () -> Void = {}
   public var cancel: () -> Void = {}

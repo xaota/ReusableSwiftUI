@@ -14,7 +14,7 @@ public struct AmountField: View {
   @Binding var currency: CurrencyEnum
   var prompt: String
 
-  @State private var internalValue: Decimal? = nil
+  @State private var internalValue: Decimal?
 
 //  @FocusState private var isFocused: Bool
 
@@ -28,9 +28,7 @@ public struct AmountField: View {
     self._currency = currency
 
     let initial = value.wrappedValue
-    if initial != 0 {
-      self._internalValue = State(initialValue: initial)
-    }
+    self._internalValue = State(initialValue: initial != 0 ? initial : nil)
   }
 
   public var body: some View {

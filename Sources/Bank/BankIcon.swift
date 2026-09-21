@@ -54,32 +54,19 @@ public struct BankIcon: View {
 
 #Preview {
   let banks: [BankJSON] = BankStore.json.bankJSON
-  let cols: Int = 3
   let size: CGFloat = 96
-  let rows: Int = Int(ceil(Double(banks.count) / Double(cols)))
+  let columns = Array(repeating: GridItem(.fixed(size + 64)), count: 3)
 
   ScrollView {
-    Grid() {
-      ForEach(0..<rows) { row in
-        GridRow {
-          ForEach(0..<cols) { col in
-            let index = row * cols + col
-            if index < banks.count {
-              let bank = banks[index]
-
-              VStack {
-                BankIcon(bank: bank.code)
-                  .frame(width: size, height: size)
-                Text("\(index + 1) " + bank.caption).font(.caption)
-              }
-              .padding()
-            } else {
-              EmptyView()
-            }
-          }
+    LazyVGrid(columns: columns) {
+      ForEach(Array(banks.enumerated()), id: \.element.code) { index, bank in
+        VStack {
+          BankIcon(bank: bank.code)
+            .frame(width: size, height: size)
+          Text("\(index + 1) " + bank.caption).font(.caption)
         }
+        .padding()
       }
     }
-
   }
 }
