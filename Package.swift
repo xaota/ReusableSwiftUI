@@ -50,7 +50,7 @@ let package = Package(
   // Declare external package dependencies here
   dependencies: [
     // .package(url: "https://github.com/exyte/SVGView.git", from: "1.0.0")
-    .package(url: "https://github.com/swhitty/SwiftDraw.git", from: "0.26.0"),
+    .package(url: "https://github.com/swhitty/SwiftDraw.git", from: "0.29.0"),
   ],
 
   targets: [

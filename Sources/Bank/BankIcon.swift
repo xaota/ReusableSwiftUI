@@ -17,8 +17,10 @@ public struct BankIcon: View {
   }
 
   public var body: some View {
-    if let uiImage = BankIcon.image(bank) {
-      Image(uiImage: uiImage)
+    if let svg = BankIcon.svg(bank) {
+      let monotone = BankStore.get(bank)?.monotone ?? false
+      SVGView(svg: svg)
+        .renderingMode(monotone ? .template : .original)
         .resizable()
         .scaledToFit()
 //        .shadow(color: .white, radius: 2)
@@ -44,16 +46,8 @@ public struct BankIcon: View {
     return Bundle.module.url(forResource: path, withExtension: nil) != nil
   }
 
-  public static func image(_ bank: String) -> UIImage? {
-    let path = BankIcon.path(bank)
-    let monotone = BankStore.get(bank)?.monotone ?? false
-//    if monotone {
-//      print("BankIcon: using monotone icon for bank '\(bank)'")
-//    }
-    let image = UIImage(svgNamed: path, in: .module)
-    return monotone
-      ? image?.withRenderingMode(.alwaysTemplate)
-      : image
+  public static func svg(_ bank: String) -> SVG? {
+    SVG(named: BankIcon.path(bank), in: .module)
   }
 
 }
