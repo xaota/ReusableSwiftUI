@@ -159,18 +159,12 @@ struct SheetWrapper<Content: View>: View {
           }
 
           if let action {
-            if #available(iOS 27.0, macOS 26.1, *) {
-              // Кнопка подтверждения не должна уезжать в overflow-меню
-              confirmItem(action: action).visibilityPriority(.high)
-            } else {
-              confirmItem(action: action)
-            }
+            // Кнопка подтверждения не должна уезжать в overflow-меню
+            confirmItem(action: action).visibilityPriority(.high)
           }
         }
         .navigationTitle(caption)
-        #if os(iOS)
-        .navigationBarTitleDisplayMode(.inline)
-        #endif
+        .inlineNavigationTitle()
     }
   }
 }

@@ -51,14 +51,9 @@ public struct FloatingTabsView: View {
         let tab = tabs[index]
 
         Tab(tab.name, systemImage: tab.icon ?? "", value: index) {
-          #if os(iOS)
           tab
             .content()
-            .toolbar(.hidden, for: .tabBar)
-          #else
-          tab
-            .content()
-          #endif
+            .hiddenTabBar()
         }
       }
     }
@@ -124,13 +119,7 @@ struct FloatingTabView: View {
   var isActive: Bool = false
   let namespace: Namespace.ID
 
-#if os(iOS)
-  let foreground = Color(uiColor: .label)
-#elseif os(macOS)
-  let foreground = Color(nsColor: .labelColor)
-#else
   let foreground = Color.primary
-#endif
   let accent = Color.accentColor
 
   var body: some View {

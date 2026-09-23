@@ -61,7 +61,6 @@ public struct FlowLayout: Layout {
   }
 }
 
-@available(iOS 27.0, macOS 27.0, *)
 extension ReorderDifference where CollectionID == ReorderableSingleCollectionIdentifier {
   /// Применяет перемещение из reorderContainer(for:) к коллекции.
   /// Для контейнеров с одной коллекцией (без секций).
@@ -104,26 +103,24 @@ private struct PreviewTag: Identifiable {
 
   NavigationStack {
     ScrollView {
-      if #available(iOS 27.0, macOS 27.0, *) {
-        // Долгое нажатие на тег — и его можно перетащить на новое место
-        FlowLayout(spacing: 10) {
-          ForEach(tags) { tag in
-            Text(tag.name)
-              .padding(.horizontal, 12)
-              .padding(.vertical, 8)
-              .background(Color.blue.opacity(0.1))
-              .cornerRadius(20)
-              .overlay(Capsule().stroke(Color.blue, lineWidth: 1))
-          }
-          .reorderable()
+      // Долгое нажатие на тег — и его можно перетащить на новое место
+      FlowLayout(spacing: 10) {
+        ForEach(tags) { tag in
+          Text(tag.name)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(Color.blue.opacity(0.1))
+            .cornerRadius(20)
+            .overlay(Capsule().stroke(Color.blue, lineWidth: 1))
         }
-        .reorderContainer(for: PreviewTag.self) { difference in
-          withAnimation {
-            difference.apply(to: &tags)
-          }
-        }
-        .padding()
+        .reorderable()
       }
+      .reorderContainer(for: PreviewTag.self) { difference in
+        withAnimation {
+          difference.apply(to: &tags)
+        }
+      }
+      .padding()
     }
   }
 }

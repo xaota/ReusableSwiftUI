@@ -35,8 +35,8 @@ public struct PercentField: View {
           // .focused($isFocused)
 #if os(iOS)
           .keyboardType(.decimalPad)
-          .submitLabel(.done)
 #endif
+          .submitLabel(.done)
           .onChange(of: internalValue) {
             value = internalValue ?? 0
           }

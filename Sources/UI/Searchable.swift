@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
 public extension View {
   @ViewBuilder
   func searchable<Content: View>(
@@ -34,12 +33,6 @@ public extension View {
 #Preview {
   @Previewable @State var queryString: String = ""
 
-#if os(iOS)
-  let placement: SearchFieldPlacement = .navigationBarDrawer(displayMode: .automatic)
-#else
-  let placement: SearchFieldPlacement = .automatic
-#endif
-
   NavigationStack {
     List {
       Text("1")
@@ -49,7 +42,7 @@ public extension View {
     .searchable(
       if: true,
       text: $queryString,
-      placement: placement,
+      placement: .drawer,
       prompt: "Поиск"
     ) {
         Button("complete 34") { queryString = "34" }

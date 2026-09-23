@@ -45,33 +45,27 @@ struct CurrencyMenuItem: View {
 
 extension String {
   func image(pointSize: CGFloat = 24, backgroundColor: Color = .clear) -> Image {
-    #if swift(>=5.9)
-    if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *) {
-      // Ensure all ImageRenderer interactions happen on the main actor
-      return MainActor.assumeIsolated {
-        let view = Text(self)
-          .font(.system(size: pointSize))
-          .padding(0)
-          .background(backgroundColor)
+    // Ensure all ImageRenderer interactions happen on the main actor
+    MainActor.assumeIsolated {
+      let view = Text(self)
+        .font(.system(size: pointSize))
+        .padding(0)
+        .background(backgroundColor)
 
-        let renderer = ImageRenderer(content: view)
-        renderer.scale = 1
+      let renderer = ImageRenderer(content: view)
+      renderer.scale = 1
 
-        #if canImport(UIKit)
-        if let uiImage = renderer.uiImage {
-          return Image(uiImage: uiImage)
-        }
-        #elseif canImport(AppKit)
-        if let nsImage = renderer.nsImage {
-          return Image(nsImage: nsImage)
-        }
-        #endif
-
-        return Image(systemName: "rectangle")
+      #if canImport(UIKit)
+      if let uiImage = renderer.uiImage {
+        return Image(uiImage: uiImage)
       }
-    }
-    #endif
+      #elseif canImport(AppKit)
+      if let nsImage = renderer.nsImage {
+        return Image(nsImage: nsImage)
+      }
+      #endif
 
-    return Image(systemName: "rectangle")
+      return Image(systemName: "rectangle")
+    }
   }
 }
