@@ -10,8 +10,8 @@ import SwiftUI
 import UIKit
 #endif
 
-// Платформенные различия iOS / macOS в одном месте, чтобы экраны не обрастали #if.
-// Здесь только API, которых на macOS 27 действительно нет (проверено компилятором).
+// Платформенные различия iOS / macOS / visionOS в одном месте, чтобы экраны не обрастали #if.
+// Здесь только API, которых на macOS 27 или visionOS 27 действительно нет (проверено компилятором).
 
 extension View {
   /// Прячет таб-бар на экранах деталей (на macOS таб-бара нет — ничего не делает)
@@ -56,6 +56,46 @@ extension View {
     return toolbarMinimizationBehavior(.onScrollDown, for: .navigationBar)
     #else
     return self
+    #endif
+  }
+
+  /// Liquid Glass под контентом (на visionOS glassEffect нет — стекло там системное, ничего не делает)
+  public func glassEffectIfAvailable() -> some View {
+    #if os(iOS) || os(macOS)
+    return glassEffect()
+    #else
+    return self
+    #endif
+  }
+
+  /// Кнопка в стиле Liquid Glass (на visionOS стиля .glass нет — обычная bordered-кнопка)
+  public func glassButtonStyle() -> some View {
+    #if os(iOS) || os(macOS)
+    return buttonStyle(.glass)
+    #else
+    return buttonStyle(.bordered)
+    #endif
+  }
+}
+
+extension ToolbarContent {
+  /// Элемент тулбара уходит в overflow-меню последним (на visionOS приоритетов .high/.low нет — ничего не делает)
+  public func highVisibilityPriority() -> some ToolbarContent {
+    #if os(iOS) || os(macOS)
+    return visibilityPriority(.high)
+    #else
+    return self
+    #endif
+  }
+}
+
+extension ToolbarItemPlacement {
+  /// Панель над клавиатурой (на visionOS клавиатура в отдельном окне и панели над ней нет — nil)
+  public static var keyboardIfAvailable: ToolbarItemPlacement? {
+    #if os(iOS) || os(macOS)
+    return .keyboard
+    #else
+    return nil
     #endif
   }
 }

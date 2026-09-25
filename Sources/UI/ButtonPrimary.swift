@@ -31,7 +31,7 @@ public struct ButtonPrimary: View {
     }
     .buttonStyle(.borderedProminent)
     .controlSize(.large)
-    .glassEffect()
+    .glassEffectIfAvailable()
     .padding(.horizontal)
   }
 }

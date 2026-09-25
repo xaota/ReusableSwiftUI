@@ -160,7 +160,7 @@ struct SheetWrapper<Content: View>: View {
 
           if let action {
             // Кнопка подтверждения не должна уезжать в overflow-меню
-            confirmItem(action: action).visibilityPriority(.high)
+            confirmItem(action: action).highVisibilityPriority()
           }
         }
         .navigationTitle(caption)

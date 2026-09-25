@@ -106,7 +106,7 @@ struct FloatingTabsPanel: View {
       }
       .padding(.vertical, 8)
       // .background(.ultraThinMaterial)
-      .glassEffect()
+      .glassEffectIfAvailable()
       .cornerRadius(32)
       .padding(.horizontal)
       .padding(.horizontal)

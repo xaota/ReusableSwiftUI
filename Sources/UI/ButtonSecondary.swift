@@ -31,7 +31,7 @@ public struct ButtonSecondary: View {
         .foregroundStyle(.link)
     }
     .controlSize(.large)
-    .buttonStyle(.glass)
+    .glassButtonStyle()
   }
 }
 

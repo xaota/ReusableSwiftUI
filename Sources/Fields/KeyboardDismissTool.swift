@@ -17,9 +17,12 @@ public struct KeyboardDismissTool: ToolbarContent {
   }
 
   public var body: some ToolbarContent {
-    ToolbarItem(placement: .keyboard) {
-      Button(action: action) {
-        Label(caption, systemImage: "keyboard.chevron.compact.down")
+    // На visionOS панели над клавиатурой нет — кнопку не показываем
+    if let placement = ToolbarItemPlacement.keyboardIfAvailable {
+      ToolbarItem(placement: placement) {
+        Button(action: action) {
+          Label(caption, systemImage: "keyboard.chevron.compact.down")
+        }
       }
     }
   }
