@@ -51,7 +51,10 @@ struct ButtonLabel: View {
     } else {
       HStack {
         Text(text)
+        // Подпись уже в тексте: со своей VoiceOver читал кнопку дважды («Далее, Далее»),
+        // а у галочки добавлял «выбрано»
         Label(text, systemImage: icon).labelStyle(.iconOnly)
+          .accessibilityHidden(true)
       }
       .frame(maxWidth: .infinity)
     }
