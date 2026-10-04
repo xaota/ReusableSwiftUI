@@ -10,12 +10,12 @@ import Foundation
 ///
 /// Острова сняты приватным `UIScreen._exclusionArea` в симуляторах Xcode 27 — модель, которой нет
 /// в таблице, Debug-сборка замечает сама и пишет в лог готовую строку. Чёлку система описывает неточно
-/// (у iPhone 12 — как у 13-го), поэтому капсулы в чёлках вписаны по контуру из маски экрана симулятора,
-/// а высота — меньшая из глубин по маске и по системе.
+/// (у iPhone 12 — как у 13-го), поэтому её глубина — меньшая из глубин по маске экрана симулятора и по системе.
+/// Капсула в чёлке — пропорций острова iPhone 18 Pro, по центру, низом на низ чёлки, с отступом сверху.
 struct NotchGeometry: Equatable, Sendable {
   /// Ширина экрана — по ней считается масштаб Display Zoom
   let screenWidth: CGFloat
-  /// Остров целиком или капсула, вписанная в чёлку, — от края экрана до низа чёлки
+  /// Остров целиком или капсула в чёлке — от `notchTop` до низа чёлки
   let capsule: CGRect
   /// Остров система отдаёт тем же прямоугольником — по нему Debug-сборка сверяет таблицу
   let isIsland: Bool
@@ -23,12 +23,21 @@ struct NotchGeometry: Equatable, Sendable {
   /// Настолько капсула меньше выреза с каждой стороны: на устройстве не просвечивает кромка по сглаженному краю выреза
   static let inset: CGFloat = 0.5
 
+  /// Отступ капсулы в чёлке от края экрана: она не прилипает к краю, а висит, как остров
+  static let notchTop: CGFloat = 6
+
+  /// Ширина к высоте у острова iPhone 18 Pro — капсулы в чёлках той же формы
+  static let islandAspect: CGFloat = 94.67 / 36.67
+
   static func island (screen: CGFloat, x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat) -> NotchGeometry {
     NotchGeometry(screenWidth: screen, capsule: CGRect(x: x, y: y, width: width, height: height), isIsland: true)
   }
 
-  static func notch (screen: CGFloat, x: CGFloat, width: CGFloat, depth: CGFloat) -> NotchGeometry {
-    NotchGeometry(screenWidth: screen, capsule: CGRect(x: x, y: 0, width: width, height: depth), isIsland: false)
+  static func notch (screen: CGFloat, depth: CGFloat) -> NotchGeometry {
+    let height = depth - notchTop
+    let width = height * islandAspect
+    let capsule = CGRect(x: (screen - width) / 2, y: notchTop, width: width, height: height)
+    return NotchGeometry(screenWidth: screen, capsule: capsule, isIsland: false)
   }
 
   /// Капсула в координатах view, растянутого на всё окно; `frame` — его рамка в глобальных координатах.
@@ -83,20 +92,20 @@ extension NotchGeometry {
     "iPhone15,3": .island(screen: 430, x: 152.33, y: 11.33, width: 125.33, height: 36.67),  // iPhone 14 Pro Max
 
     // Чёлка
-    "iPhone18,5": .notch(screen: 390, x: 120.62, width: 148.77, depth: 33.67),  // iPhone 17e
-    "iPhone17,5": .notch(screen: 390, x: 120.62, width: 148.77, depth: 33.67),  // iPhone 16e
-    "iPhone14,7": .notch(screen: 390, x: 120.62, width: 148.77, depth: 33.67),  // iPhone 14
-    "iPhone14,8": .notch(screen: 428, x: 139.72, width: 148.57, depth: 33.67),  // iPhone 14 Plus
-    "iPhone14,5": .notch(screen: 390, x: 120.62, width: 148.77, depth: 33.67),  // iPhone 13
-    "iPhone14,2": .notch(screen: 390, x: 120.62, width: 148.77, depth: 33.67),  // iPhone 13 Pro
-    "iPhone14,3": .notch(screen: 428, x: 139.72, width: 148.57, depth: 33.67),  // iPhone 13 Pro Max
-    "iPhone14,4": .notch(screen: 375, x: 105.4, width: 164.2, depth: 37.33),    // iPhone 13 mini
-    "iPhone13,2": .notch(screen: 390, x: 96.78, width: 196.44, depth: 32),      // iPhone 12
-    "iPhone13,3": .notch(screen: 390, x: 96.78, width: 196.44, depth: 32),      // iPhone 12 Pro
-    "iPhone13,4": .notch(screen: 428, x: 116.06, width: 195.87, depth: 32),     // iPhone 12 Pro Max
-    "iPhone13,1": .notch(screen: 375, x: 81.82, width: 211.37, depth: 34.35),   // iPhone 12 mini
-    "iPhone12,1": .notch(screen: 414, x: 97.09, width: 219.81, depth: 32),      // iPhone 11
-    "iPhone12,3": .notch(screen: 375, x: 92.86, width: 189.94, depth: 30),      // iPhone 11 Pro
-    "iPhone12,5": .notch(screen: 414, x: 110.11, width: 193.78, depth: 30),     // iPhone 11 Pro Max
+    "iPhone18,5": .notch(screen: 390, depth: 33.67),        // iPhone 17e
+    "iPhone17,5": .notch(screen: 390, depth: 33.67),        // iPhone 16e
+    "iPhone14,7": .notch(screen: 390, depth: 33.67),        // iPhone 14
+    "iPhone14,8": .notch(screen: 428, depth: 33.67),        // iPhone 14 Plus
+    "iPhone14,5": .notch(screen: 390, depth: 33.67),        // iPhone 13
+    "iPhone14,2": .notch(screen: 390, depth: 33.67),        // iPhone 13 Pro
+    "iPhone14,3": .notch(screen: 428, depth: 33.67),        // iPhone 13 Pro Max
+    "iPhone14,4": .notch(screen: 375, depth: 37.33),        // iPhone 13 mini
+    "iPhone13,2": .notch(screen: 390, depth: 32),           // iPhone 12
+    "iPhone13,3": .notch(screen: 390, depth: 32),           // iPhone 12 Pro
+    "iPhone13,4": .notch(screen: 428, depth: 32),           // iPhone 12 Pro Max
+    "iPhone13,1": .notch(screen: 375, depth: 34.35),        // iPhone 12 mini
+    "iPhone12,1": .notch(screen: 414, depth: 32),           // iPhone 11
+    "iPhone12,3": .notch(screen: 375, depth: 30),           // iPhone 11 Pro
+    "iPhone12,5": .notch(screen: 414, depth: 30),           // iPhone 11 Pro Max
   ]
 }

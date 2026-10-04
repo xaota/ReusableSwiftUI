@@ -80,7 +80,7 @@ extension NotchGeometry {
 
     guard let known = current else {
       print("notch: модели \(modelIdentifier) нет в NotchGeometry.table — капсула не рисуется. Вырез по данным системы: \(cutout).\n"
-        + (cutout.minY > 0 ? "Добавь в таблицу:\n  \(island)" : "Похоже на чёлку: впиши капсулу по контуру из маски экрана симулятора"))
+        + (cutout.minY > 0 ? "Добавь в таблицу:\n  \(island)" : "Похоже на чёлку: добавь .notch(screen:depth:) с глубиной по маске экрана симулятора"))
       return
     }
     guard known.isIsland else { return }  // чёлку система описывает неточно — сверять не с чем

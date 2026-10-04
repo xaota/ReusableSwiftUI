@@ -46,15 +46,26 @@ struct NotchGeometryTests {
     #expect(geometry.capsule.minX > 0 && geometry.capsule.maxX < geometry.screenWidth)
   }
 
-  @Test("остров висит под краем экрана, капсула в чёлке — от самого края", arguments: models)
+  @Test("остров висит под краем экрана, капсула в чёлке — в 6 pt от края", arguments: models)
   func top (model: String) throws {
     let geometry = try geometry(model)
-    #expect(geometry.isIsland ? geometry.capsule.minY > 10 : geometry.capsule.minY == 0)
+    #expect(geometry.isIsland ? geometry.capsule.minY > 10 : geometry.capsule.minY == 6)
   }
 
-  @Test("у iPhone 12 чёлка шире, чем у 13-го, — капсула тоже")
-  func notch12Wider () throws {
-    #expect(try geometry("iPhone13,2").capsule.width > geometry("iPhone14,5").capsule.width + 40)
+  @Test("капсула в чёлке — пропорций острова iPhone 18 Pro", arguments: models)
+  func notchAspect (model: String) throws {
+    let geometry = try geometry(model)
+    guard !geometry.isIsland else { return }
+    let island = try self.geometry("iPhone19,2").capsule
+    #expect(abs(geometry.capsule.width / geometry.capsule.height - island.width / island.height) < 0.001)
+  }
+
+  @Test("у iPhone 13 mini капсула низом на низ чёлки — 81 × 31 pt")
+  func notch13mini () throws {
+    let capsule = try geometry("iPhone14,4").capsule
+    #expect(abs(capsule.maxY - 37.33) < 0.01)
+    #expect(abs(capsule.height - 31.33) < 0.01)
+    #expect(abs(capsule.width - 80.89) < 0.01)
   }
 
   @Test("в окне без Display Zoom капсула на 0.5 pt меньше с каждой стороны", arguments: ["iPhone19,2", "iPhone18,5"])
