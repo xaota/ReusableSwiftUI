@@ -93,11 +93,16 @@ private struct SheetHost<InnerContent: View>: View {
       action: action,
       interactiveDismiss: interactiveDismiss
     ) {
+      // Размер меряет подложка, а не модификатор на самом содержимом: с onGeometryChange прямо на нём
+      // шторку, открытую из содержимого поверх этой, SwiftUI в конце показа пересоздаёт и сбрасывает её @State
       content()
-        .onGeometryChange(for: CGSize.self) { proxy in
-          proxy.size
-        } action: {
-          contentHeight = $0.height + 128
+        .background {
+          Color.clear
+            .onGeometryChange(for: CGSize.self) { proxy in
+              proxy.size
+            } action: {
+              contentHeight = $0.height + 128
+            }
         }
     }
     .presentationSizing(.form)
