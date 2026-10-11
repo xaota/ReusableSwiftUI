@@ -11,7 +11,8 @@ import UIKit
 #endif
 
 // Платформенные различия iOS / macOS / visionOS в одном месте, чтобы экраны не обрастали #if.
-// Здесь только API, которых на macOS 27 или visionOS 27 действительно нет (проверено компилятором).
+// Здесь только API, которых на macOS или visionOS действительно нет (проверено компилятором),
+// и API iOS/macOS 27, у которых на 26 нет замены — там обёртка ничего не делает.
 
 extension View {
   /// Прячет таб-бар на экранах деталей (на macOS таб-бара нет — ничего не делает)
@@ -50,12 +51,17 @@ extension View {
     #endif
   }
 
-  /// Сворачивать навбар при скролле вниз (только iOS)
+  /// Сворачивать навбар при скролле вниз (только iOS 27; на iOS 26 навбар не сворачивается)
+  @ViewBuilder
   public func minimizesNavigationBarOnScroll() -> some View {
     #if os(iOS)
-    return toolbarMinimizationBehavior(.onScrollDown, for: .navigationBar)
+    if #available(iOS 27, *) {
+      toolbarMinimizationBehavior(.onScrollDown, for: .navigationBar)
+    } else {
+      self
+    }
     #else
-    return self
+    self
     #endif
   }
 
@@ -79,12 +85,18 @@ extension View {
 }
 
 extension ToolbarContent {
-  /// Элемент тулбара уходит в overflow-меню последним (на visionOS приоритетов .high/.low нет — ничего не делает)
+  /// Элемент тулбара уходит в overflow-меню последним (приоритеты .high/.low — с iOS и macOS 27;
+  /// на 26 и на visionOS ничего не делает)
+  @ToolbarContentBuilder
   public func highVisibilityPriority() -> some ToolbarContent {
     #if os(iOS) || os(macOS)
-    return visibilityPriority(.high)
+    if #available(iOS 27, macOS 27, *) {
+      visibilityPriority(.high)
+    } else {
+      self
+    }
     #else
-    return self
+    self
     #endif
   }
 }

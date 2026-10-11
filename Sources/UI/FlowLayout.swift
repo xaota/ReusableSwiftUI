@@ -61,6 +61,7 @@ public struct FlowLayout: Layout {
   }
 }
 
+@available(iOS 27, macOS 27, *)
 extension ReorderDifference where CollectionID == ReorderableSingleCollectionIdentifier {
   /// Применяет перемещение из reorderContainer(for:) к коллекции.
   /// Для контейнеров с одной коллекцией (без секций).
@@ -96,6 +97,7 @@ private struct PreviewTag: Identifiable {
   var name: String
 }
 
+@available(iOS 27, macOS 27, *)
 #Preview {
   @Previewable @State var tags: [PreviewTag] = [
     "SwiftUI", "iOS", "Layout Protocol", "Flow", "Flexible", "Coding", "App Design", "Development", "Mobile"
