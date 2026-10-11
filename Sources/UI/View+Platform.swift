@@ -87,16 +87,27 @@ extension View {
 extension ToolbarContent {
   /// Элемент тулбара уходит в overflow-меню последним (приоритеты .high/.low — с iOS и macOS 27;
   /// на 26 и на visionOS ничего не делает)
-  @ToolbarContentBuilder
-  public func highVisibilityPriority() -> some ToolbarContent {
+  public func highVisibilityPriority() -> HighVisibilityPriority<Self> {
+    HighVisibilityPriority(content: self)
+  }
+}
+
+/// Элемент тулбара с высоким приоритетом видимости — см. `highVisibilityPriority()`.
+/// Именованный тип, а не `some ToolbarContent`: в Release модуль-клиент видит тип под `some` насквозь и ссылается
+/// на дескриптор `ToolbarContentBuilder.buildLimitedAvailability`, а он always-emit-into-client и есть только в
+/// модуле, где `if #available` написан, — при минимуме ниже 27 ld падает с «Undefined symbols» (Debug не ловит)
+public struct HighVisibilityPriority<Content: ToolbarContent>: ToolbarContent {
+  let content: Content
+
+  public var body: some ToolbarContent {
     #if os(iOS) || os(macOS)
     if #available(iOS 27, macOS 27, *) {
-      visibilityPriority(.high)
+      content.visibilityPriority(.high)
     } else {
-      self
+      content
     }
     #else
-    self
+    content
     #endif
   }
 }
