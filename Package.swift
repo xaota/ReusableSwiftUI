@@ -3,6 +3,11 @@
 
 import PackageDescription
 
+/// Release: Swift помечает всё public `[no dead strip]`, и в бинарник приложения шло всё API пакета, даже то, что
+/// оно не зовёт. Флаг снимает отметку — неиспользуемое public вычищает линковщик. Он верит, что все клиенты — в той же
+/// линковке: так и есть — приложения линкуют пакет статически и только в цель приложения, тесты — в Debug
+let internalize = SwiftSetting.unsafeFlags(["-Xfrontend", "-internalize-at-link"], .when(configuration: .release))
+
 let package = Package(
   name: "Reusable",
   defaultLocalization: "en",
@@ -56,11 +61,13 @@ let package = Package(
   targets: [
     .target(
       name: "JSON",
-      dependencies: []
+      dependencies: [],
+      swiftSettings: [internalize]
     ),
     .target(
       name: "Channel",
-      dependencies: []
+      dependencies: [],
+      swiftSettings: [internalize]
     ),
     .target(
       name: "Intl",
@@ -70,21 +77,24 @@ let package = Package(
       resources: [
         .process("currency.json"),
         .process("Localizable.xcstrings")
-      ]
+      ],
+      swiftSettings: [internalize]
     ),
     .target(
       name: "UI",
       dependencies: [],
       resources: [
         .process("Localizable.xcstrings")
-      ]
+      ],
+      swiftSettings: [internalize]
     ),
     .target(
       name: "Fields",
       dependencies: ["Intl", "UI"],
       resources: [
         .process("Localizable.xcstrings")
-      ]
+      ],
+      swiftSettings: [internalize]
     ),
     .target(
       name: "Bank",
@@ -97,21 +107,24 @@ let package = Package(
       resources: [
         .copy("svg"),
         .process("bank.json")
-      ]
+      ],
+      swiftSettings: [internalize]
     ),
     .target(
       name: "LLM",
       dependencies: [],
       resources: [
         // .process("Localizable.xcstrings")
-      ]
+      ],
+      swiftSettings: [internalize]
     ),
     .target(
       name: "Weather",
       dependencies: [],
       resources: [
         // .process("Localizable.xcstrings")
-      ]
+      ],
+      swiftSettings: [internalize]
     ),
     .testTarget(
       name: "ReusableTests",
