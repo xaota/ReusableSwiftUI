@@ -67,6 +67,7 @@ extension NotchGeometry {
   @MainActor static func audit () {
     guard !audited else { return }
     audited = true
+    guard !withoutCapsule.contains(modelIdentifier) else { return }
 
     guard let screen = UIApplication.shared.connectedScenes.lazy.compactMap({ ($0 as? UIWindowScene)?.screen }).first,
           let area = screen.exclusionArea

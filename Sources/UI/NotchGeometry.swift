@@ -71,6 +71,12 @@ extension NotchGeometry {
     table[identifier]
   }
 
+  /// Модели, у которых вырез — круглая камера в углу: капсула с названием под неё не помещается,
+  /// поэтому их нет в таблице намеренно и Debug-сборка не просит их туда добавить
+  static let withoutCapsule: Set<String> = [
+    "iPhone19,4",  // iPhone Duo: камера в правом верхнем углу, на внешнем экране — круг 37 pt
+  ]
+
   static let table: [String: NotchGeometry] = [
     // Dynamic Island
     "iPhone19,2": .island(screen: 402, x: 153.67, y: 14, width: 94.67, height: 36.67),      // iPhone 18 Pro

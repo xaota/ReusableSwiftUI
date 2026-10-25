@@ -79,6 +79,9 @@ private struct OnboardingController: ViewModifier {
 
 public struct Onboarding: View {
   @Environment(\.dismiss) private var dismiss
+#if os(iOS)
+  @Environment(\.verticalSizeClass) private var verticalSizeClass
+#endif
 
   var caption: String = ""
   var pages: [OnboardingPage]
@@ -86,19 +89,31 @@ public struct Onboarding: View {
 
   @State var selectedIndex: Int = 0
 
+  /// Место под точки пейджера внизу страницы
+  static let pageIndicatorInset: CGFloat = 32
+
   public var body: some View {
     TabView(selection: $selectedIndex) {
       ForEach(Array(pages.enumerated()), id: \.offset) { index, tab in
-        tab
-          .content()
-          .hiddenTabBar()
-          .tag(index)
+        // Страница прокручивается: в низком окне (ландшафт iPhone) содержимое не наезжает на точки пейджера,
+        // а помещающееся — стоит по центру, как без прокрутки
+        ScrollView {
+          tab
+            .content()
+            .frame(maxWidth: .infinity)
+        }
+        .defaultScrollAnchor(.center, for: .alignment)
+        .scrollBounceBehavior(.basedOnSize)
+        .contentMargins(.bottom, Self.pageIndicatorInset, for: .scrollContent)
+        .hiddenTabBar()
+        .tag(index)
       }
     }
 #if os(macOS)
     .tabViewStyle(.automatic)
 #else
-    .tabViewStyle(.page)
+    // в низком окне точки ложились бы поверх прокручиваемой страницы, а листает всё равно кнопка
+    .tabViewStyle(.page(indexDisplayMode: verticalSizeClass == .compact ? .never : .automatic))
 #endif
     .safeAreaInset(edge: .bottom) {
       if !pages.isEmpty {

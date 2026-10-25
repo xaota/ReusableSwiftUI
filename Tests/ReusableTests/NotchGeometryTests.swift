@@ -101,4 +101,10 @@ struct NotchGeometryTests {
   func noCutout (model: String) {
     #expect(NotchGeometry.model(model) == nil)
   }
+
+  @Test("у iPhone Duo камера в углу — капсулы нет, и в таблице его быть не должно")
+  func duoWithoutCapsule () {
+    #expect(NotchGeometry.model("iPhone19,4") == nil)
+    #expect(NotchGeometry.withoutCapsule.isDisjoint(with: NotchGeometry.table.keys))
+  }
 }
